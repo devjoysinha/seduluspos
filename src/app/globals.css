@@ -2,15 +2,15 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
-  --primary: #f97316;
-  --primary-dark: #ea580c;
-  --primary-light: #fff7ed;
-  --secondary: #0f172a;
-  --accent: #059669;
-  --muted: #64748b;
-  --muted-bg: #f8fafc;
-  --border: #e2e8f0;
+  --foreground: #3a1222;
+  --primary: #8E2B44;
+  --primary-dark: #6D1D32;
+  --primary-light: #F7D6DC;
+  --secondary: #4B0F1E;
+  --accent: #B23C59;
+  --muted: #7a6069;
+  --muted-bg: #fdf2f4;
+  --border: #f0d4da;
 }
 
 @theme inline {
@@ -24,7 +24,8 @@
   --color-muted: var(--muted);
   --color-muted-bg: var(--muted-bg);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
+  --font-heading: var(--font-playfair);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -32,6 +33,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), serif;
 }
 
 html {

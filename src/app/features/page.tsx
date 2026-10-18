@@ -206,7 +206,7 @@ export default function FeaturesPage() {
                 </ul>
               </div>
               <div className={index % 2 === 1 ? "md:order-1" : ""}>
-                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 border border-border flex items-center justify-center">
+                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#F7D6DC] to-[#f0c4cc] border border-border flex items-center justify-center">
                   <div className="text-center p-8">
                     <div className="h-16 w-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
                       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -235,7 +235,7 @@ export default function FeaturesPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-primary hover:bg-slate-50 transition-colors"
+              className="inline-block rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-primary hover:bg-[#fdf2f4] transition-colors"
             >
               Book Free Demo
             </Link>

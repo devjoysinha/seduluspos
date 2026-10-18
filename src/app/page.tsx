@@ -153,12 +153,12 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-secondary to-slate-700 p-6 shadow-2xl">
+              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#4B0F1E] to-[#6D1D32] p-6 shadow-2xl">
                 <div className="h-full rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 p-4 flex flex-col">
                   <div className="flex gap-2 mb-4">
-                    <div className="h-3 w-3 rounded-full bg-red-400" />
-                    <div className="h-3 w-3 rounded-full bg-yellow-400" />
-                    <div className="h-3 w-3 rounded-full bg-green-400" />
+                    <div className="h-3 w-3 rounded-full bg-[#CC5671]" />
+                    <div className="h-3 w-3 rounded-full bg-[#E07A94]" />
+                    <div className="h-3 w-3 rounded-full bg-[#F7D6DC]" />
                   </div>
                   <div className="flex-1 grid grid-cols-3 gap-3">
                     <div className="col-span-2 space-y-3">
@@ -211,7 +211,7 @@ export default function HomePage() {
                 <p className="text-3xl md:text-4xl font-bold text-primary">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-sm text-slate-400">{stat.label}</p>
+                <p className="mt-1 text-sm text-[#E07A94]">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -382,7 +382,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-primary hover:bg-slate-50 transition-colors"
+                className="rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-primary hover:bg-[#fdf2f4] transition-colors"
               >
                 Start Free Trial
               </Link>
