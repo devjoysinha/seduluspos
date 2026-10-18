@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Sedulus POS — Restaurant Billing & Management Software | India",
   description:
     "Sedulus POS is India's #1 restaurant POS software. Fast billing, kitchen display, inventory management, Swiggy & Zomato integration, GST-ready. Free trial for 14 days.",
-  alternates: { canonical: "https://seduluspos.com" },
+  alternates: { canonical: "https://www.sedulus.in" },
 };
 
 const stats = [

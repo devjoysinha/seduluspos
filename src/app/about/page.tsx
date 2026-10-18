@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "About Us — The Team Behind Sedulus POS",
   description:
     "Sedulus Technologies builds restaurant software that works the way restaurants actually work. Founded in 2024, trusted by 15,000+ restaurants across 150+ Indian cities.",
-  alternates: { canonical: "https://seduluspos.com/about" },
+  alternates: { canonical: "https://www.sedulus.in/about" },
   openGraph: {
     title: "About Sedulus POS",
     description:
       "We're building the operating system for Indian restaurants — one that works offline, speaks Hindi, and fits a ₹100/day budget.",
-    url: "https://seduluspos.com/about",
+    url: "https://www.sedulus.in/about",
   },
 };
 

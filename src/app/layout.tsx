@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://seduluspos.com"),
+  metadataBase: new URL("https://www.sedulus.in"),
   title: {
     default: "Sedulus POS — Restaurant Billing & Management Software",
     template: "%s | Sedulus POS",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://seduluspos.com",
+    url: "https://www.sedulus.in",
     siteName: "Sedulus POS",
     title: "Sedulus POS — Restaurant Billing & Management Software",
     description:
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://seduluspos.com",
+    canonical: "https://www.sedulus.in",
   },
 };
 
@@ -104,7 +104,7 @@ const jsonLd = {
   author: {
     "@type": "Organization",
     name: "Sedulus Technologies",
-    url: "https://seduluspos.com",
+    url: "https://www.sedulus.in",
   },
 };
 
@@ -112,8 +112,8 @@ const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Sedulus Technologies",
-  url: "https://seduluspos.com",
-  logo: "https://seduluspos.com/logo.png",
+  url: "https://www.sedulus.in",
+  logo: "https://www.sedulus.in/logo.png",
   sameAs: [
     "https://twitter.com/seduluspos",
     "https://linkedin.com/company/sedulus-technologies",

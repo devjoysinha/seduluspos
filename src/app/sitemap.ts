@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://seduluspos.com";
+  const baseUrl = "https://www.sedulus.in";
 
   return [
     {

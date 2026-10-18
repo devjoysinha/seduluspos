@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://seduluspos.com/sitemap.xml",
+    sitemap: "https://www.sedulus.in/sitemap.xml",
   };
 }

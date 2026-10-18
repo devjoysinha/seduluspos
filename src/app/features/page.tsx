@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Features — Restaurant POS, KDS, Inventory & Online Orders",
   description:
     "Explore Sedulus POS features: lightning-fast billing, kitchen display system, real-time inventory, Swiggy & Zomato integration, table management, CRM, GST invoicing, and multi-outlet analytics.",
-  alternates: { canonical: "https://seduluspos.com/features" },
+  alternates: { canonical: "https://www.sedulus.in/features" },
   openGraph: {
     title: "Features — Sedulus POS Restaurant Software",
     description:
       "Everything your restaurant needs in one platform — billing, KDS, inventory, online orders, analytics and more.",
-    url: "https://seduluspos.com/features",
+    url: "https://www.sedulus.in/features",
   },
 };
 

@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Pricing — Affordable Restaurant POS Plans",
   description:
     "Transparent pricing for Sedulus POS restaurant software. Free Starter plan, Pro at ₹1,999/mo, and Enterprise for chains. No hidden fees, cancel anytime.",
-  alternates: { canonical: "https://seduluspos.com/pricing" },
+  alternates: { canonical: "https://www.sedulus.in/pricing" },
   openGraph: {
     title: "Pricing — Sedulus POS",
     description:
       "Start free, upgrade when you grow. Plans from ₹0 to ₹4,999/month for restaurant chains.",
-    url: "https://seduluspos.com/pricing",
+    url: "https://www.sedulus.in/pricing",
   },
 };
 

@@ -69,7 +69,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-secondary">Email</p>
-                    <p className="text-muted">hello@seduluspos.com</p>
+                    <p className="text-muted">hello@sedulus.in</p>
                   </div>
                 </div>
 
