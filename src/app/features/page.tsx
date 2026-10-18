@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -21,6 +22,8 @@ const featureCategories = [
     title: "Billing That Keeps Up With Rush Hour",
     description:
       "Designed for speed. Your cashier can punch a 20-item order in under 30 seconds with our touch-first interface.",
+    screenshot: "/screenshots/pos-billing.jpg",
+    screenshotAlt: "POS billing interface with menu grid, order builder, and dine-in/takeaway modes",
     features: [
       "Touch-optimised menu grid with smart search",
       "Split bills, merge tables, custom discounts",
@@ -36,6 +39,8 @@ const featureCategories = [
     title: "Your Kitchen, Fully Connected",
     description:
       "Replace paper KOTs with a real-time kitchen display. Orders appear the moment they're placed — colour-coded by urgency.",
+    screenshot: "/screenshots/kitchen-display.jpg",
+    screenshotAlt: "Kitchen display with live KOTs, preparation status, and mark-ready controls",
     features: [
       "Station-wise routing (grill, bar, tandoor, etc.)",
       "Colour-coded order priority and SLA timers",
@@ -51,6 +56,8 @@ const featureCategories = [
     title: "Know Every Gram That Enters and Leaves",
     description:
       "Recipe-level ingredient tracking means you know exactly what each dish costs and where wastage happens.",
+    screenshot: "/screenshots/menu.jpg",
+    screenshotAlt: "Menu management with item categories, pricing, and availability controls",
     features: [
       "Auto stock deduction on every sale",
       "Recipe management with ingredient mapping",
@@ -66,6 +73,8 @@ const featureCategories = [
     title: "All Your Orders in One Place",
     description:
       "Swiggy, Zomato, your own website — every order lands on the same screen and routes to the kitchen automatically.",
+    screenshot: "/screenshots/orders.jpg",
+    screenshotAlt: "Unified order dashboard showing all order types, statuses, and amounts",
     features: [
       "Swiggy & Zomato auto-accept with menu sync",
       "Self-ordering website & QR menu",
@@ -96,6 +105,8 @@ const featureCategories = [
     title: "Data-Driven Decisions, Every Day",
     description:
       "From a daily P&L to hourly sales heatmaps — everything you need to optimise operations and grow revenue.",
+    screenshot: "/screenshots/dashboard.jpg",
+    screenshotAlt: "Analytics dashboard with sales figures, order stats, and live performance metrics",
     features: [
       "Real-time sales dashboard on mobile",
       "Outlet-wise comparison for chains",
@@ -111,6 +122,8 @@ const featureCategories = [
     title: "Manage Every Table, Every Floor",
     description:
       "Visual floor plan with real-time table status. Know which tables are occupied, reserved, or about to turn over.",
+    screenshot: "/screenshots/tables.jpg",
+    screenshotAlt: "Floor plan with colour-coded table status showing occupied, available, and reserved tables",
     features: [
       "Drag-and-drop floor plan editor",
       "Real-time table status with time tracking",
@@ -206,16 +219,28 @@ export default function FeaturesPage() {
                 </ul>
               </div>
               <div className={index % 2 === 1 ? "md:order-1" : ""}>
-                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#F7D6DC] to-[#f0c4cc] border border-border flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="h-16 w-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-                      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <p className="text-sm font-medium text-muted">{cat.category}</p>
+                {cat.screenshot ? (
+                  <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+                    <Image
+                      src={cat.screenshot}
+                      alt={cat.screenshotAlt || cat.category}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto"
+                    />
                   </div>
-                </div>
+                ) : (
+                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#F7D6DC] to-[#f0c4cc] border border-border flex items-center justify-center">
+                    <div className="text-center p-8">
+                      <div className="h-16 w-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+                        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <p className="text-sm font-medium text-muted">{cat.category}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -153,36 +154,15 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#4B0F1E] to-[#6D1D32] p-6 shadow-2xl">
-                <div className="h-full rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 p-4 flex flex-col">
-                  <div className="flex gap-2 mb-4">
-                    <div className="h-3 w-3 rounded-full bg-[#CC5671]" />
-                    <div className="h-3 w-3 rounded-full bg-[#E07A94]" />
-                    <div className="h-3 w-3 rounded-full bg-[#F7D6DC]" />
-                  </div>
-                  <div className="flex-1 grid grid-cols-3 gap-3">
-                    <div className="col-span-2 space-y-3">
-                      <div className="h-8 rounded bg-white/20" />
-                      <div className="grid grid-cols-3 gap-2">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <div key={i} className="h-16 rounded-lg bg-white/15 flex items-center justify-center">
-                            <div className="h-4 w-8 rounded bg-white/30" />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="h-6 rounded bg-primary/60 w-2/3" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-6 rounded bg-white/20" />
-                      <div className="space-y-1.5">
-                        {Array.from({ length: 4 }).map((_, i) => (
-                          <div key={i} className="h-5 rounded bg-white/10" />
-                        ))}
-                      </div>
-                      <div className="h-10 rounded-lg bg-accent/70 mt-auto" />
-                    </div>
-                  </div>
-                </div>
+              <div className="rounded-2xl bg-gradient-to-br from-[#4B0F1E] to-[#6D1D32] p-3 shadow-2xl">
+                <Image
+                  src="/screenshots/pos-billing.jpg"
+                  alt="Sedulus POS billing interface showing menu items, order management, and dine-in billing"
+                  width={800}
+                  height={600}
+                  className="rounded-lg w-full h-auto"
+                  priority
+                />
               </div>
               <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-xl p-4 border border-border">
                 <div className="flex items-center gap-3">
@@ -261,6 +241,77 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Showcase */}
+      <section className="py-20 bg-muted-bg" aria-labelledby="showcase-heading">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
+              See It In Action
+            </p>
+            <h2 id="showcase-heading" className="text-3xl md:text-4xl font-bold text-secondary">
+              Built for Real Restaurant Operations
+            </h2>
+            <p className="mt-4 text-lg text-muted">
+              Every screen is designed by restaurant owners, for restaurant owners.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="group">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg transition-shadow group-hover:shadow-xl">
+                <Image
+                  src="/screenshots/dashboard.jpg"
+                  alt="Restaurant dashboard showing daily sales, active orders, and live order pulse"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-secondary">Owner Dashboard</h3>
+              <p className="text-sm text-muted">Real-time sales, active orders, and performance metrics at a glance.</p>
+            </div>
+            <div className="group">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg transition-shadow group-hover:shadow-xl">
+                <Image
+                  src="/screenshots/kitchen-display.jpg"
+                  alt="Kitchen display system showing active KOTs with preparation status"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-secondary">Kitchen Display System</h3>
+              <p className="text-sm text-muted">Live KOTs with priority tracking, station routing, and one-tap ready marking.</p>
+            </div>
+            <div className="group">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg transition-shadow group-hover:shadow-xl">
+                <Image
+                  src="/screenshots/tables.jpg"
+                  alt="Floor management showing table status with occupied, available, and reserved indicators"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-secondary">Table & Floor Management</h3>
+              <p className="text-sm text-muted">Visual floor plan with live table status, multi-floor support, and reservations.</p>
+            </div>
+            <div className="group">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg transition-shadow group-hover:shadow-xl">
+                <Image
+                  src="/screenshots/orders.jpg"
+                  alt="Order history showing today's orders with type, time, status and amounts"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-secondary">Order History & Reports</h3>
+              <p className="text-sm text-muted">Complete order trail with filtering, status tracking, and instant reconciliation.</p>
+            </div>
           </div>
         </div>
       </section>
