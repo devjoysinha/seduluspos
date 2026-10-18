@@ -1,0 +1,22 @@
+name: Deploy Sedulus POS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/seduluspos
+            git pull origin main
+            docker compose build --no-cache
+            docker compose up -d
+            docker exec ipobarta-nginx nginx -s reload

@@ -1,0 +1,13 @@
+services:
+  seduluspos:
+    build: .
+    container_name: seduluspos-frontend
+    restart: unless-stopped
+    expose:
+      - "3000"
+    networks:
+      - ipobarta_default
+
+networks:
+  ipobarta_default:
+    external: true
