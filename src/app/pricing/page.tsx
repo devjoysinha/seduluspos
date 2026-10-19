@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RevealOnScroll from "@/components/RevealOnScroll";
+import { SectionHead, Check, PinkCta } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Pricing — Affordable Restaurant POS Plans",
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 
 const plans = [
   {
+    step: "01 / start small",
     name: "Starter",
     price: "Free",
     period: "forever",
@@ -32,6 +35,7 @@ const plans = [
     cta: "Get Started Free",
   },
   {
+    step: "02 / grow steadily",
     name: "Pro",
     price: "₹1,999",
     period: "/month",
@@ -51,6 +55,7 @@ const plans = [
     cta: "Start 14-Day Free Trial",
   },
   {
+    step: "03 / scale up",
     name: "Enterprise",
     price: "₹4,999",
     period: "/outlet/month",
@@ -69,6 +74,13 @@ const plans = [
     ],
     cta: "Contact Sales",
   },
+];
+
+const addons = [
+  { name: "WhatsApp Business API", price: "₹499/mo" },
+  { name: "Advanced CRM & Loyalty", price: "₹299/mo" },
+  { name: "Self-Ordering Kiosk", price: "₹799/mo" },
+  { name: "Dedicated Server Hosting", price: "₹999/mo" },
 ];
 
 const faqs = [
@@ -101,143 +113,111 @@ const faqs = [
 export default function PricingPage() {
   return (
     <>
-      <section className="bg-gradient-to-br from-white via-primary-light to-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
-            Pricing
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
-            Simple, Transparent Pricing
-          </h1>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
-            Start free. Upgrade when you grow. No hidden fees, no long-term
-            contracts.
-          </p>
-        </div>
+      <section className="relative mx-auto w-[min(1280px,88%)] pb-2 pt-20">
+        <div className="hero-grid" aria-hidden="true" />
+        <SectionHead
+          as="h1"
+          eyebrow="pricing"
+          title="Simple, Transparent"
+          accent="Pricing"
+          aside="Start free. Upgrade when you grow. No hidden fees, no long-term contracts."
+        />
       </section>
 
-      <section className="py-20" aria-labelledby="plans-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 id="plans-heading" className="sr-only">Available Plans</h2>
-          <div className="grid md:grid-cols-3 gap-8 items-start">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`rounded-2xl p-8 border ${
-                  plan.highlight
-                    ? "border-primary shadow-xl shadow-primary/10 relative"
-                    : "border-border"
+      <section className="mx-auto w-[min(1280px,88%)] pb-24" aria-labelledby="plans-heading">
+        <h2 id="plans-heading" className="sr-only">
+          Available Plans
+        </h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {plans.map((plan) => (
+            <RevealOnScroll key={plan.name} className="h-full">
+              <article
+                className={`glass-panel relative flex h-full flex-col p-8 ${
+                  plan.highlight ? "border-primary/50 shadow-[0_0_38px_rgb(255_131_202/8%)]" : ""
                 }`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-semibold px-4 py-1 rounded-full">
-                    Most Popular
-                  </div>
-                )}
-                <h3 className="text-lg font-semibold text-secondary">
-                  {plan.name}
-                </h3>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-secondary">
-                    {plan.price}
+                  <span className="absolute right-5 top-5 rounded border border-primary/30 bg-primary/10 px-2 py-1 font-mono text-[10px] tracking-wide text-primary">
+                    MOST POPULAR
                   </span>
-                  <span className="text-muted text-sm">{plan.period}</span>
+                )}
+                <span className="micro text-[#a58ba0]">{plan.step}</span>
+                <h3 className="mt-4 text-[26px] font-medium tracking-[-0.02em]">{plan.name}</h3>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="text-[44px] leading-none tracking-[-0.04em]">{plan.price}</span>
+                  <span className="micro">{plan.period}</span>
                 </div>
-                <p className="mt-3 text-sm text-muted">{plan.description}</p>
-                <Link
-                  href="/contact"
-                  className={`mt-8 block text-center rounded-lg px-6 py-3 text-sm font-semibold transition-colors ${
-                    plan.highlight
-                      ? "bg-primary text-white hover:bg-primary-dark"
-                      : "border-2 border-secondary text-secondary hover:bg-secondary hover:text-white"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
-                <ul className="mt-8 space-y-3">
+                <p className="mt-4 text-[14px] leading-[1.7] text-[#a39aa3]">{plan.description}</p>
+                <ul className="m-0 my-7 flex flex-1 list-none flex-col gap-3 border-t border-white/[0.06] p-0 pt-7">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <svg
-                        className="h-5 w-5 text-accent mt-0.5 shrink-0"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm text-secondary">{f}</span>
+                    <li key={f} className="flex items-start gap-3 text-[14px] text-[#cbc2ca]">
+                      <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />
+                      {f}
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
+                <Link href="/contact" className={`${plan.highlight ? "btn-primary" : "btn-glass"} w-full`}>
+                  {plan.cta} <span aria-hidden="true">&#8599;</span>
+                </Link>
+              </article>
+            </RevealOnScroll>
+          ))}
         </div>
       </section>
 
-      {/* Add-Ons */}
-      <section className="py-16 bg-muted-bg" aria-labelledby="addons-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 id="addons-heading" className="text-2xl font-bold text-secondary text-center mb-8">
-            Optional Add-Ons
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "WhatsApp Business API", price: "₹499/mo" },
-              { name: "Advanced CRM & Loyalty", price: "₹299/mo" },
-              { name: "Self-Ordering Kiosk", price: "₹799/mo" },
-              { name: "Dedicated Server Hosting", price: "₹999/mo" },
-            ].map((addon) => (
-              <div
-                key={addon.name}
-                className="bg-white rounded-xl border border-border p-6 text-center"
-              >
-                <p className="font-semibold text-secondary">{addon.name}</p>
-                <p className="text-primary font-bold mt-2">{addon.price}</p>
+      <section className="mx-auto w-[min(1280px,88%)] border-t border-white/10 py-24" aria-labelledby="addons-heading">
+        <SectionHead
+          eyebrow="extras, when you need them"
+          title="Optional"
+          accent="Add-Ons"
+          aside="Add capabilities to any plan as your restaurant grows — switch them on or off whenever you like."
+        />
+        <h2 id="addons-heading" className="sr-only">
+          Optional Add-Ons
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {addons.map((addon) => (
+            <RevealOnScroll key={addon.name} className="h-full">
+              <div className="glass-panel flex h-full flex-col justify-between gap-6 p-6">
+                <p className="text-[16px] font-medium leading-[1.4]">{addon.name}</p>
+                <p className="font-mono text-[15px] text-primary">{addon.price}</p>
               </div>
-            ))}
-          </div>
+            </RevealOnScroll>
+          ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20" aria-labelledby="faq-heading">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 id="faq-heading" className="text-3xl font-bold text-secondary text-center mb-12">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
-            {faqs.map((faq) => (
-              <div key={faq.q} className="border-b border-border pb-6">
-                <h3 className="text-lg font-semibold text-secondary mb-2">
-                  {faq.q}
-                </h3>
-                <p className="text-muted">{faq.a}</p>
+      <section className="mx-auto w-[min(1280px,88%)] border-t border-white/10 py-24" aria-labelledby="faq-heading">
+        <SectionHead
+          eyebrow="good questions"
+          title="Frequently Asked"
+          accent="Questions"
+          aside="Straight answers on plans, hardware, offline mode, and data. Need more? Our team is a message away."
+        />
+        <h2 id="faq-heading" className="sr-only">
+          Frequently Asked Questions
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          {faqs.map((faq) => (
+            <RevealOnScroll key={faq.q} className="h-full">
+              <div className="glass-panel h-full p-7">
+                <h3 className="mb-3 text-[20px] font-medium leading-[1.3] tracking-[-0.02em]">{faq.q}</h3>
+                <p className="text-[14px] leading-[1.8] text-[#a39aa3]">{faq.a}</p>
               </div>
-            ))}
-          </div>
+            </RevealOnScroll>
+          ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-muted-bg">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-secondary mb-4">
-            Still Have Questions?
-          </h2>
-          <p className="text-muted mb-8 max-w-xl mx-auto">
-            Our team is happy to walk you through the product, help you choose
-            the right plan, or set up a custom quote for your chain.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-white hover:bg-primary-dark transition-colors"
-          >
-            Talk to Sales
-          </Link>
-        </div>
-      </section>
+      <PinkCta
+        label="TALK TO US"
+        title="Still Have"
+        accent="Questions?"
+        primary={{ href: "/contact", label: "Talk to Sales" }}
+      >
+        Our team is happy to walk you through the product, help you choose the right plan, or set up a custom quote for
+        your chain.
+      </PinkCta>
     </>
   );
 }

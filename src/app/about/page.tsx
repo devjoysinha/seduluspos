@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import RevealOnScroll from "@/components/RevealOnScroll";
+import { SectionHead, PinkCta } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "About Us — The Team Behind Sedulus POS",
@@ -48,101 +49,99 @@ const milestones = [
 export default function AboutPage() {
   return (
     <>
-      <section className="bg-gradient-to-br from-white via-primary-light to-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
-              About Us
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
-              We&apos;re Building the OS for Indian Restaurants
-            </h1>
-            <p className="text-lg text-muted">
-              Sedulus Technologies was born out of a simple frustration: why does
-              restaurant software feel like it was built for someone else? We set
-              out to build a POS that works the way Indian restaurants actually
-              operate — fast, offline, multilingual, and affordable.
-            </p>
-          </div>
-        </div>
+      <section className="relative mx-auto w-[min(1280px,88%)] pb-4 pt-20">
+        <div className="hero-grid" aria-hidden="true" />
+        <SectionHead
+          as="h1"
+          eyebrow="about us"
+          title="We're Building the OS for"
+          accent="Indian Restaurants"
+          aside="Sedulus Technologies was born out of a simple frustration: why does restaurant software feel like it was built for someone else? We set out to build a POS that works the way Indian restaurants actually operate — fast, offline, multilingual, and affordable."
+        />
       </section>
 
-      {/* Mission */}
-      <section className="py-20" aria-labelledby="mission-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="mx-auto w-[min(1280px,88%)] border-t border-white/10 py-24" aria-labelledby="mission-heading">
+        <RevealOnScroll>
+          <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
             <div>
-              <h2 id="mission-heading" className="text-3xl font-bold text-secondary mb-6">
+              <span className="micro mb-5 block text-[#a58ba0]">01 / mission</span>
+              <h2
+                id="mission-heading"
+                className="mb-6 text-[clamp(30px,3.2vw,42px)] font-medium leading-[1.12] tracking-[-0.04em]"
+              >
                 Our Mission
               </h2>
-              <p className="text-muted mb-4">
-                India has over 75 lakh restaurants. Most still use handwritten
-                KOTs, paper bills, and mental arithmetic for inventory. We want
-                to change that — not by selling expensive hardware, but by
-                putting powerful software on the devices they already own.
+              <p className="mb-5 max-w-[500px] text-[15px] leading-[1.85] text-[#a39aa3]">
+                India has over 75 lakh restaurants. Most still use handwritten KOTs, paper bills, and mental arithmetic
+                for inventory. We want to change that — not by selling expensive hardware, but by putting powerful
+                software on the devices they already own.
               </p>
-              <p className="text-muted">
-                Our goal is simple: every restaurant in India, from a roadside
-                stall to a multi-city chain, should have access to world-class
-                restaurant management tools — at a price they can afford and in
-                a language they speak.
+              <p className="max-w-[500px] text-[15px] leading-[1.85] text-[#a39aa3]">
+                Our goal is simple: every restaurant in India, from a roadside stall to a multi-city chain, should have
+                access to world-class restaurant management tools — at a price they can afford and in a language they
+                speak.
               </p>
             </div>
-            <div className="bg-muted-bg rounded-2xl p-8">
-              <div className="space-y-6">
+
+            <div className="glass-panel p-8">
+              <div className="micro mb-7 flex items-center justify-between border-b border-white/[0.06] pb-5">
+                <span>
+                  <span className="mr-1.5 text-[#8f7e8c]">#</span>timeline
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="status-dot" style={{ width: 4, height: 4 }} />
+                  2024 — 2026
+                </span>
+              </div>
+              <ol className="m-0 list-none border-l border-white/10 p-0 pl-7">
                 {milestones.map((m, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="text-sm font-bold text-primary w-12 shrink-0">
-                      {m.year}
-                    </div>
-                    <div className="text-sm text-secondary">{m.event}</div>
-                  </div>
+                  <li key={i} className="relative pb-7 last:pb-0">
+                    <span
+                      className="absolute -left-[32px] top-[7px] h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgb(255_131_202/42%)]"
+                      aria-hidden="true"
+                    />
+                    <span className="micro block text-primary">{m.year}</span>
+                    <span className="text-[15px] leading-[1.6] text-[#d4ccd4]">{m.event}</span>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           </div>
+        </RevealOnScroll>
+      </section>
+
+      <section className="mx-auto w-[min(1280px,88%)] border-t border-white/10 py-24" aria-labelledby="values-heading">
+        <SectionHead
+          eyebrow="what drives the product"
+          title="What We"
+          accent="Believe"
+          aside="Four principles we hold ourselves to — in the product, in pricing, and in how we treat your data."
+        />
+        <h2 id="values-heading" className="sr-only">
+          What We Believe
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          {values.map((v, i) => (
+            <RevealOnScroll key={v.title} className="h-full">
+              <article className="glass-panel h-full p-8">
+                <span className="micro text-[#a58ba0]">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mb-3 mt-4 text-[24px] font-medium tracking-[-0.025em]">{v.title}</h3>
+                <p className="text-[14px] leading-[1.8] text-[#a39aa3]">{v.description}</p>
+              </article>
+            </RevealOnScroll>
+          ))}
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-20 bg-muted-bg" aria-labelledby="values-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 id="values-heading" className="text-3xl font-bold text-secondary text-center mb-12">
-            What We Believe
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {values.map((v) => (
-              <div key={v.title} className="bg-white rounded-2xl p-8 border border-border">
-                <h3 className="text-lg font-semibold text-secondary mb-3">
-                  {v.title}
-                </h3>
-                <p className="text-muted">{v.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-secondary mb-4">
-            Want to Join the Team?
-          </h2>
-          <p className="text-muted mb-8 max-w-xl mx-auto">
-            We&apos;re always looking for people who care about building great
-            products. Check out our open positions or drop us a line.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-white hover:bg-primary-dark transition-colors"
-            >
-              Get in Touch
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PinkCta
+        label="WE'RE HIRING"
+        title="Want to Join"
+        accent="the Team?"
+        primary={{ href: "/contact", label: "Get in Touch" }}
+      >
+        We&apos;re always looking for people who care about building great products. Check out our open positions or
+        drop us a line.
+      </PinkCta>
     </>
   );
 }

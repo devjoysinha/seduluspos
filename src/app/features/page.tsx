@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import RevealOnScroll from "@/components/RevealOnScroll";
+import { SectionHead, Check, Shot, PinkCta } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Features — Restaurant POS, KDS, Inventory & Online Orders",
@@ -15,7 +15,16 @@ export const metadata: Metadata = {
   },
 };
 
-const featureCategories = [
+const featureCategories: {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  screenshot?: string;
+  screenshotAlt?: string;
+  icon?: string;
+  features: string[];
+}[] = [
   {
     id: "billing",
     category: "Point of Sale",
@@ -90,6 +99,7 @@ const featureCategories = [
     title: "Turn First-Timers Into Regulars",
     description:
       "Build a customer database automatically. Run targeted campaigns, loyalty programs, and feedback collection.",
+    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
     features: [
       "Auto-capture customer details from bills",
       "Points-based loyalty program",
@@ -139,6 +149,7 @@ const featureCategories = [
     title: "One Dashboard for All Your Outlets",
     description:
       "Manage menus, pricing, staff, and promotions across outlets centrally while keeping outlet-level autonomy.",
+    icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
     features: [
       "Centralised menu management",
       "Outlet-specific pricing & tax rules",
@@ -153,29 +164,29 @@ const featureCategories = [
 export default function FeaturesPage() {
   return (
     <>
-      <section className="bg-gradient-to-br from-white via-primary-light to-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
-            Features
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
-            Everything Your Restaurant Needs
-          </h1>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
-            From a single-counter chai stall to a 50-outlet chain — Sedulus POS
-            adapts to your business. Explore every capability below.
-          </p>
-        </div>
+      <section className="relative mx-auto w-[min(1280px,88%)] pb-4 pt-20">
+        <div className="hero-grid" aria-hidden="true" />
+        <SectionHead
+          as="h1"
+          eyebrow="features"
+          title="Everything Your"
+          accent="Restaurant Needs"
+          aside="From a single-counter chai stall to a 50-outlet chain — Sedulus POS adapts to your business. Explore every capability below."
+        />
       </section>
 
-      <nav className="sticky top-16 z-40 bg-white border-b border-border overflow-x-auto" aria-label="Feature categories">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-6 py-3 min-w-max">
+      <nav
+        className="sticky top-[72px] z-10 border-y border-white/[0.06]"
+        style={{ background: "rgb(5 6 7 / 77%)", backdropFilter: "blur(18px)" }}
+        aria-label="Feature categories"
+      >
+        <div className="mx-auto w-[min(1280px,88%)] overflow-x-auto">
+          <div className="flex min-w-max gap-7 py-3.5">
             {featureCategories.map((cat) => (
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                className="text-sm font-medium text-muted hover:text-primary whitespace-nowrap transition-colors"
+                className="whitespace-nowrap text-[13px] text-[#a3a3aa] transition-colors hover:text-primary"
               >
                 {cat.category}
               </a>
@@ -188,85 +199,78 @@ export default function FeaturesPage() {
         <section
           key={cat.id}
           id={cat.id}
-          className={`py-20 ${index % 2 === 1 ? "bg-muted-bg" : ""}`}
+          className="scroll-mt-32 border-b border-white/[0.06] py-20 last:border-b-0"
           aria-labelledby={`${cat.id}-heading`}
         >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className={index % 2 === 1 ? "md:order-2" : ""}>
-                <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
-                  {cat.category}
-                </p>
-                <h2 id={`${cat.id}-heading`} className="text-3xl font-bold text-secondary mb-4">
-                  {cat.title}
-                </h2>
-                <p className="text-muted mb-8">{cat.description}</p>
-                <ul className="space-y-3">
-                  {cat.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <svg
-                        className="h-5 w-5 text-accent mt-0.5 shrink-0"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm text-secondary">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className={index % 2 === 1 ? "md:order-1" : ""}>
-                {cat.screenshot ? (
-                  <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
-                    <Image
+          <div className="mx-auto w-[min(1280px,88%)]">
+            <RevealOnScroll>
+              <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+                <div className={index % 2 === 1 ? "md:order-2" : ""}>
+                  <span className="micro mb-5 block text-[#a58ba0]">
+                    {String(index + 1).padStart(2, "0")} / {cat.category.toLowerCase()}
+                  </span>
+                  <h2
+                    id={`${cat.id}-heading`}
+                    className="mb-4 text-[clamp(28px,3vw,38px)] font-medium leading-[1.15] tracking-[-0.04em]"
+                  >
+                    {cat.title}
+                  </h2>
+                  <p className="mb-8 max-w-[480px] text-[15px] leading-[1.8] text-[#a39aa3]">{cat.description}</p>
+                  <ul className="m-0 grid list-none gap-3 p-0">
+                    {cat.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-[14px] text-[#cbc2ca]">
+                        <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={index % 2 === 1 ? "md:order-1" : ""}>
+                  {cat.screenshot ? (
+                    <Shot
+                      label={cat.id}
+                      status="live"
                       src={cat.screenshot}
                       alt={cat.screenshotAlt || cat.category}
-                      width={800}
-                      height={600}
-                      className="w-full h-auto"
+                      sizes="(min-width: 768px) 45vw, 92vw"
                     />
-                  </div>
-                ) : (
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#F7D6DC] to-[#f0c4cc] border border-border flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="h-16 w-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-                        <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                  ) : (
+                    <div className="glass-panel relative grid aspect-[4/3] place-items-center overflow-hidden">
+                      <div className="hero-grid" aria-hidden="true" />
+                      <div className="text-center">
+                        <span className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.07] text-primary">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-8 w-8"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d={cat.icon} />
+                          </svg>
+                        </span>
+                        <p className="micro">{cat.category}</p>
                       </div>
-                      <p className="text-sm font-medium text-muted">{cat.category}</p>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
+            </RevealOnScroll>
           </div>
         </section>
       ))}
 
-      {/* CTA */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-r from-primary to-primary-dark p-12 md:p-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              See It in Action
-            </h2>
-            <p className="text-lg text-white/80 max-w-xl mx-auto mb-8">
-              Book a free 20-minute demo and see how Sedulus POS fits your
-              restaurant — no sales pitch, just the product.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-primary hover:bg-[#fdf2f4] transition-colors"
-            >
-              Book Free Demo
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PinkCta
+        label="FREE DEMO"
+        title="See It in"
+        accent="Action"
+        primary={{ href: "/contact", label: "Book Free Demo" }}
+      >
+        Book a free 20-minute demo and see how Sedulus POS fits your restaurant — no sales pitch, just the product.
+      </PinkCta>
     </>
   );
 }
