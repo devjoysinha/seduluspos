@@ -5,6 +5,12 @@ services:
     restart: unless-stopped
     expose:
       - "3000"
+    # Contact-form lead delivery. Values come from the gitignored .env next to
+    # this file on the server (see README); nothing secret is committed.
+    environment:
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-}
+      CONTACT_FROM_EMAIL: ${CONTACT_FROM_EMAIL:-}
     networks:
       - ipobarta_default
 

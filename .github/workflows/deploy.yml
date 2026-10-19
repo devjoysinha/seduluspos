@@ -34,6 +34,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/seduluspos
+            # Contact-form secrets live only in this gitignored file (see README).
+            for v in RESEND_API_KEY CONTACT_TO_EMAIL; do
+              grep -q "^$v=." .env 2>/dev/null || { echo "Missing $v in /home/ubuntu/seduluspos/.env (see README)"; exit 1; }
+            done
             git pull origin main
             docker compose build --no-cache
             docker compose up -d
