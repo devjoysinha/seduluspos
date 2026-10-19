@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import RevealOnScroll from "@/components/RevealOnScroll";
-import { SectionHead, Check, Shot, PinkCta } from "@/components/ui";
+import Image from "next/image";
+import ClosingCta from "@/components/ClosingCta";
+import Reveal from "@/components/Reveal";
+import Tilt from "@/components/Tilt";
 
 export const metadata: Metadata = {
   title: "Features — Restaurant POS, KDS, Inventory & Online Orders",
@@ -164,113 +166,115 @@ const featureCategories: {
 export default function FeaturesPage() {
   return (
     <>
-      <section className="relative mx-auto w-[min(1280px,88%)] pb-4 pt-20">
+      <section className="page-hero section-shell">
         <div className="hero-grid" aria-hidden="true" />
-        <SectionHead
-          as="h1"
-          eyebrow="features"
-          title="Everything Your"
-          accent="Restaurant Needs"
-          aside="From a single-counter chai stall to a 50-outlet chain — Sedulus POS adapts to your business. Explore every capability below."
-        />
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> features
+            </span>
+            <h1>
+              Everything Your{" "}
+              <br />
+              <em>Restaurant Needs</em>
+            </h1>
+          </div>
+          <p>
+            From a single-counter chai stall to a 50-outlet chain, Sedulus POS adapts to your business. Explore every
+            capability below.
+          </p>
+        </Reveal>
       </section>
 
-      <nav
-        className="sticky top-[72px] z-10 border-y border-white/[0.06]"
-        style={{ background: "rgb(5 6 7 / 77%)", backdropFilter: "blur(18px)" }}
-        aria-label="Feature categories"
-      >
-        <div className="mx-auto w-[min(1280px,88%)] overflow-x-auto">
-          <div className="flex min-w-max gap-7 py-3.5">
+      <nav className="feature-nav" aria-label="Feature categories">
+        <div className="feature-nav-inner">
+          <ul>
             {featureCategories.map((cat) => (
-              <a
-                key={cat.id}
-                href={`#${cat.id}`}
-                className="whitespace-nowrap text-[13px] text-[#a3a3aa] transition-colors hover:text-primary"
-              >
-                {cat.category}
-              </a>
+              <li key={cat.id}>
+                <a href={`#${cat.id}`}>{cat.category}</a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </nav>
 
-      {featureCategories.map((cat, index) => (
-        <section
-          key={cat.id}
-          id={cat.id}
-          className="scroll-mt-32 border-b border-white/[0.06] py-20 last:border-b-0"
-          aria-labelledby={`${cat.id}-heading`}
-        >
-          <div className="mx-auto w-[min(1280px,88%)]">
-            <RevealOnScroll>
-              <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-                <div className={index % 2 === 1 ? "md:order-2" : ""}>
-                  <span className="micro mb-5 block text-[#a58ba0]">
-                    {String(index + 1).padStart(2, "0")} / {cat.category.toLowerCase()}
-                  </span>
-                  <h2
-                    id={`${cat.id}-heading`}
-                    className="mb-4 text-[clamp(28px,3vw,38px)] font-medium leading-[1.15] tracking-[-0.04em]"
-                  >
-                    {cat.title}
-                  </h2>
-                  <p className="mb-8 max-w-[480px] text-[15px] leading-[1.8] text-[#a39aa3]">{cat.description}</p>
-                  <ul className="m-0 grid list-none gap-3 p-0">
-                    {cat.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-[14px] text-[#cbc2ca]">
-                        <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={index % 2 === 1 ? "md:order-1" : ""}>
-                  {cat.screenshot ? (
-                    <Shot
-                      label={cat.id}
-                      status="live"
-                      src={cat.screenshot}
-                      alt={cat.screenshotAlt || cat.category}
-                      sizes="(min-width: 768px) 45vw, 92vw"
-                    />
-                  ) : (
-                    <div className="glass-panel relative grid aspect-[4/3] place-items-center overflow-hidden">
-                      <div className="hero-grid" aria-hidden="true" />
-                      <div className="text-center">
-                        <span className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.07] text-primary">
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="h-8 w-8"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={1.5}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d={cat.icon} />
-                          </svg>
-                        </span>
-                        <p className="micro">{cat.category}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+      <div className="page-section section-shell">
+        {featureCategories.map((cat, index) => {
+          const reverse = index % 2 === 1;
+          const copy = (
+            <div className="feature-copy">
+              <span className="micro step-number">
+                {String(index + 1).padStart(2, "0")} / {cat.category.toLowerCase()}
+              </span>
+              <h2>{cat.title}</h2>
+              <p>{cat.description}</p>
+              <ul className="feature-list">
+                {cat.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          );
+          const visual = cat.screenshot ? (
+            <Tilt className="shot-panel glass-panel">
+              <div className="panel-heading micro">
+                <span>
+                  <span className="status-dot" /> {cat.id}
+                </span>
+                <span>live view</span>
               </div>
-            </RevealOnScroll>
-          </div>
-        </section>
-      ))}
+              <Image
+                src={cat.screenshot}
+                alt={cat.screenshotAlt ?? cat.category}
+                width={800}
+                height={600}
+                sizes="(min-width: 1000px) 45vw, 92vw"
+              />
+            </Tilt>
+          ) : (
+            <Tilt className="icon-panel glass-panel">
+              <div>
+                <span className="icon-panel-mark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d={cat.icon} />
+                  </svg>
+                </span>
+                <span className="micro">{cat.category}</span>
+              </div>
+            </Tilt>
+          );
+          return (
+            <Reveal
+              as="article"
+              id={cat.id}
+              key={cat.id}
+              className={`feature-row feature-block${reverse ? " feature-row--reverse" : ""}`}
+            >
+              {reverse ? (
+                <>
+                  {visual}
+                  {copy}
+                </>
+              ) : (
+                <>
+                  {copy}
+                  {visual}
+                </>
+              )}
+            </Reveal>
+          );
+        })}
+      </div>
 
-      <PinkCta
+      <ClosingCta
         label="FREE DEMO"
         title="See It in"
         accent="Action"
-        primary={{ href: "/contact", label: "Book Free Demo" }}
-      >
-        Book a free 20-minute demo and see how Sedulus POS fits your restaurant — no sales pitch, just the product.
-      </PinkCta>
+        copy="Book a free 20-minute demo and see how Sedulus POS fits your restaurant — no sales pitch, just the product."
+        primary={{ href: "/contact", label: "Book free demo" }}
+        secondary={{ href: "/pricing", label: "View pricing" }}
+        footnote="twenty minutes. just the product."
+      />
     </>
   );
 }

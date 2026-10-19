@@ -2,15 +2,10 @@
 
 import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { Check } from "@/components/ui";
 import { HONEYPOT_FIELD, LIMITS, outletOptions, restaurantTypes, type LeadField } from "@/lib/contact";
 
-const labelCls = "mb-2 block text-[13px] font-medium text-[#d9d2d9]";
-const fieldCls =
-  "w-full rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 py-3 text-[14px] text-[color:var(--ink)] placeholder:text-[#8a8590] transition-colors focus:border-primary focus:bg-white/[0.06] aria-[invalid=true]:border-[#ff7b7b]/70";
-
-const PHONE = { display: "+91-9876543210", href: "tel:+919876543210" };
-const EMAIL = { display: "hello@sedulus.in", href: "mailto:hello@sedulus.in" };
+const PHONE = { display: "+91 8420117725", href: "tel:+918420117725" };
+const EMAIL = { display: "joysinha@sedulus.in", href: "mailto:joysinha@sedulus.in" };
 
 const contactItems = [
   {
@@ -80,85 +75,61 @@ export default function ContactPage() {
     error?.field === field ? { "aria-invalid": true, "aria-describedby": "contact-error" } : {};
 
   return (
-    <section className="relative mx-auto w-[min(1280px,88%)] pb-24 pt-20">
+    <section className="contact-layout section-shell">
       <div className="hero-grid" aria-hidden="true" />
-      <div className="grid gap-14 md:grid-cols-[1fr_1.05fr] md:gap-16">
-        <div>
-          <span className="eyebrow mb-6 flex w-fit">
-            <span className="status-dot" /> get in touch
-          </span>
-          <h1 className="text-[clamp(40px,4.6vw,62px)] font-medium leading-[1.08] tracking-[-0.045em]">
-            Let&apos;s Set Up
-            <br />
-            <em className="text-[1.1em] tracking-[-0.035em]">Your Restaurant</em>
-          </h1>
-          <p className="mb-10 mt-6 max-w-[460px] text-[16px] leading-[1.75] text-[#a8a2a7]">
-            Fill in the form and our product specialist will reach out within 2 hours to schedule your free demo.
-          </p>
+      <div className="contact-copy">
+        <span className="eyebrow">
+          <span className="status-dot" /> get in touch
+        </span>
+        <h1>
+          Let&apos;s Set Up{" "}
+          <br />
+          <em>Your Restaurant</em>
+        </h1>
+        <p className="contact-lede">
+          Fill in the form and our product specialist will reach out within 2 hours to schedule your free demo.
+        </p>
 
-          <ul className="m-0 flex list-none flex-col gap-6 p-0">
-            {contactItems.map((item) => (
-              <li key={item.label} className="flex items-start gap-4">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-primary/25 bg-primary/[0.07] text-primary">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    {item.paths.map((d) => (
-                      <path key={d} d={d} />
-                    ))}
-                  </svg>
-                </span>
-                <div>
-                  <p className="micro mb-1 text-[#a58ba0]">{item.label.toLowerCase()}</p>
-                  {item.href ? (
-                    <a href={item.href} className="text-[16px] transition-colors hover:text-primary">
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="text-[16px]">{item.value}</p>
-                  )}
-                  {item.note && <p className="micro mt-1">{item.note}</p>}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="glass-panel p-8">
-          {status === "sent" ? (
-            <div role="status" className="py-12 text-center">
-              <span className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full border border-primary/30 bg-primary/10 text-primary">
-                <Check className="h-7 w-7" />
+        <ul className="contact-list">
+          {contactItems.map((item) => (
+            <li className="contact-item" key={item.label}>
+              <span className="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  {item.paths.map((d) => (
+                    <path key={d} d={d} />
+                  ))}
+                </svg>
               </span>
-              <h2 className="mb-3 text-[30px] font-medium tracking-[-0.03em]">Thank You!</h2>
-              <p className="mx-auto max-w-[360px] text-[15px] leading-[1.7] text-[#a39aa3]">
-                Our team will reach out within 2 hours. In the meantime, check out our{" "}
-                <Link href="/features" className="font-medium text-primary underline-offset-4 hover:underline">
-                  features
-                </Link>{" "}
-                page.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <div>
-                <h2 className="mb-2 text-[26px] font-medium tracking-[-0.03em]">Request a Free Demo</h2>
-                <p className="text-[14px] text-[#a39aa3]">
-                  Fill in the details below and we&apos;ll get back to you shortly.
-                </p>
+                <span className="micro">{item.label.toLowerCase()}</span>
+                {item.href ? <a href={item.href}>{item.value}</a> : <p>{item.value}</p>}
+                {item.note && <span className="micro contact-note">{item.note}</span>}
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className={labelCls}>
-                    Full Name *
-                  </label>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="contact-form glass-panel">
+        {status === "sent" ? (
+          <div role="status" className="contact-success">
+            <span className="success-mark" aria-hidden="true">
+              ✓
+            </span>
+            <h2>Thank You!</h2>
+            <p>
+              Our team will reach out within 2 hours. In the meantime, check out our <Link href="/features">features</Link>{" "}
+              page.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h2>Request a Free Demo</h2>
+            <p className="contact-sub">Fill in the details below and we&apos;ll get back to you shortly.</p>
+            <form onSubmit={handleSubmit}>
+              <div className="field-row">
+                <div className="field">
+                  <label htmlFor="name">Full Name *</label>
                   <input
                     type="text"
                     id="name"
@@ -166,15 +137,12 @@ export default function ContactPage() {
                     required
                     maxLength={LIMITS.name}
                     autoComplete="name"
-                    className={fieldCls}
                     placeholder="Rajesh Sharma"
                     {...invalid("name")}
                   />
                 </div>
-                <div>
-                  <label htmlFor="phone" className={labelCls}>
-                    Phone Number *
-                  </label>
+                <div className="field">
+                  <label htmlFor="phone">Phone Number *</label>
                   <input
                     type="tel"
                     id="phone"
@@ -182,16 +150,13 @@ export default function ContactPage() {
                     required
                     maxLength={LIMITS.phone}
                     autoComplete="tel"
-                    className={fieldCls}
                     placeholder="+91 98765 43210"
                     {...invalid("phone")}
                   />
                 </div>
               </div>
-              <div>
-                <label htmlFor="email" className={labelCls}>
-                  Email Address *
-                </label>
+              <div className="field">
+                <label htmlFor="email">Email Address *</label>
                 <input
                   type="email"
                   id="email"
@@ -199,15 +164,12 @@ export default function ContactPage() {
                   required
                   maxLength={LIMITS.email}
                   autoComplete="email"
-                  className={fieldCls}
                   placeholder="rajesh@spicegarden.com"
                   {...invalid("email")}
                 />
               </div>
-              <div>
-                <label htmlFor="restaurant" className={labelCls}>
-                  Restaurant Name *
-                </label>
+              <div className="field">
+                <label htmlFor="restaurant">Restaurant Name *</label>
                 <input
                   type="text"
                   id="restaurant"
@@ -215,17 +177,14 @@ export default function ContactPage() {
                   required
                   maxLength={LIMITS.restaurant}
                   autoComplete="organization"
-                  className={fieldCls}
                   placeholder="Spice Garden"
                   {...invalid("restaurant")}
                 />
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="type" className={labelCls}>
-                    Restaurant Type *
-                  </label>
-                  <select id="type" name="type" required className={fieldCls} {...invalid("type")}>
+              <div className="field-row">
+                <div className="field">
+                  <label htmlFor="type">Restaurant Type *</label>
+                  <select id="type" name="type" required {...invalid("type")}>
                     <option value="">Select type</option>
                     {restaurantTypes.map((t) => (
                       <option key={t} value={t}>
@@ -234,11 +193,9 @@ export default function ContactPage() {
                     ))}
                   </select>
                 </div>
-                <div>
-                  <label htmlFor="outlets" className={labelCls}>
-                    Number of Outlets
-                  </label>
-                  <select id="outlets" name="outlets" className={fieldCls} {...invalid("outlets")}>
+                <div className="field">
+                  <label htmlFor="outlets">Number of Outlets</label>
+                  <select id="outlets" name="outlets" {...invalid("outlets")}>
                     {outletOptions.map((o) => (
                       <option key={o.value} value={o.value}>
                         {o.label}
@@ -247,67 +204,51 @@ export default function ContactPage() {
                   </select>
                 </div>
               </div>
-              <div>
-                <label htmlFor="message" className={labelCls}>
-                  Anything else?
-                </label>
+              <div className="field">
+                <label htmlFor="message">Anything else?</label>
                 <textarea
                   id="message"
                   name="message"
                   rows={3}
                   maxLength={LIMITS.message}
-                  className={`${fieldCls} resize-none`}
                   placeholder="Tell us about your requirements..."
                   {...invalid("message")}
                 />
               </div>
-              <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+              <div aria-hidden="true" className="hp-field">
                 <label htmlFor={HONEYPOT_FIELD}>Website</label>
                 <input type="text" id={HONEYPOT_FIELD} name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" />
               </div>
               {error && (
-                <p
-                  id="contact-error"
-                  role="alert"
-                  className="rounded-lg border border-[#ff7b7b]/30 bg-[#ff7b7b]/[0.08] px-4 py-3 text-[13px] leading-[1.6] text-[#ffc4c4]"
-                >
+                <p id="contact-error" role="alert" className="form-error">
                   {error.message}
                   {!error.field && (
                     <>
                       {" "}
-                      You can also call{" "}
-                      <a href={PHONE.href} className="font-medium text-[color:var(--ink)] underline underline-offset-4">
-                        {PHONE.display}
-                      </a>{" "}
-                      or email{" "}
-                      <a href={EMAIL.href} className="font-medium text-[color:var(--ink)] underline underline-offset-4">
-                        {EMAIL.display}
-                      </a>
-                      .
+                      You can also call <a href={PHONE.href}>{PHONE.display}</a> or email{" "}
+                      <a href={EMAIL.href}>{EMAIL.display}</a>.
                     </>
                   )}
                 </p>
               )}
               <button
                 type="submit"
+                className="button"
                 disabled={!hydrated || status === "sending"}
-                className="btn-primary w-full disabled:pointer-events-none aria-busy:opacity-70"
                 aria-busy={status === "sending"}
               >
                 {status === "sending" ? (
                   "Sending…"
                 ) : (
                   <>
-                    Request Demo <span aria-hidden="true">&#8599;</span>
+                    Request Demo <span aria-hidden="true">↗</span>
                   </>
                 )}
               </button>
-              <p className="micro text-center">
-                By submitting, you agree to our Privacy Policy. We won&apos;t spam you.
-              </p>
+              <p className="micro form-note">By submitting, you agree to our Privacy Policy. We won&apos;t spam you.</p>
             </form>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </section>
   );

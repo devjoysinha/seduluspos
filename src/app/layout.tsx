@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, DM_Mono } from "next/font/google";
+import { DM_Sans, DM_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import "./site.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SceneBackdrop from "@/components/SceneBackdrop";
+import LightField from "@/components/LightField";
+import MotionControl from "@/components/MotionControl";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin", "latin-ext"], display: "swap" });
 
 const dmMono = DM_Mono({
   variable: "--font-dm-mono",
-  subsets: ["latin"],
-  weight: ["400"],
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: "italic",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -129,7 +130,7 @@ const orgJsonLd = {
   ],
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+91-9876543210",
+    telephone: "+91-8420117725",
     contactType: "sales",
     areaServed: "IN",
     availableLanguage: ["English", "Hindi"],
@@ -138,11 +139,7 @@ const orgJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${inter.variable} ${dmMono.variable} antialiased`}
-      style={{ colorScheme: "dark" }}
-    >
+    <html lang="en" className={`${dmSans.variable} ${dmMono.variable} ${instrumentSerif.variable}`}>
       <head>
         <meta name="theme-color" content="#050607" />
         <script
@@ -154,11 +151,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col">
-        <SceneBackdrop />
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <LightField />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main">{children}</main>
         <Footer />
+        <MotionControl />
+        <noscript>
+          <div className="noscript-message">
+            This page is readable without JavaScript. Enable JavaScript to try the order flow, estimator and animated
+            light field.
+          </div>
+        </noscript>
       </body>
     </html>
   );

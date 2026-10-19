@@ -1,14 +1,35 @@
 "use client";
 
-export default function SceneBackdrop() {
+import { useEffect, useRef } from "react";
+import { initLightField, type LightFieldController } from "@/lib/light-field";
+import { setGraphicsStatus } from "@/lib/graphics";
+import { getMotionState, isMotionEnabled, useMotionEnabled } from "@/lib/motion";
+
+export default function LightField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const controllerRef = useRef<LightFieldController | null>(null);
+  const motionEnabled = useMotionEnabled();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const controller = initLightField(canvas, { window, document, onStatus: setGraphicsStatus });
+    controller.setMotion(isMotionEnabled(getMotionState()));
+    controllerRef.current = controller;
+    return () => {
+      controller.destroy();
+      controllerRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    controllerRef.current?.setMotion(motionEnabled);
+  }, [motionEnabled]);
+
   return (
     <div className="scene-backdrop" aria-hidden="true">
       <div className="scene-haze" />
-      <svg
-        className="absolute inset-0 w-full h-full opacity-80"
-        viewBox="0 0 1440 1000"
-        preserveAspectRatio="xMidYMid slice"
-      >
+      <svg className="static-stream" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="stream-pink">
             <stop stopColor="#60334e" stopOpacity="0" />
@@ -35,6 +56,7 @@ export default function SceneBackdrop() {
           <path d="M1600 -100C1160 10 1270 190 970 280S510 380 800 520 1350 780 1040 1160" />
         </g>
       </svg>
+      <canvas id="light-field" ref={canvasRef} />
       <div className="scene-vignette" />
     </div>
   );

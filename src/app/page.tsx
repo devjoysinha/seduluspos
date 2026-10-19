@@ -1,9 +1,18 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import RevealOnScroll from "@/components/RevealOnScroll";
-import { SectionHead, Check, Shot } from "@/components/ui";
+import type { CSSProperties } from "react";
+import BrandMark from "@/components/BrandMark";
+import ClosingCta from "@/components/ClosingCta";
+import { ExportButton, HeatmapCard, PeopleCard, RunLogCard } from "@/components/DashboardPanels";
+import FoldCard from "@/components/FoldCard";
+import HeroWindow from "@/components/HeroWindow";
+import KitchenPanel from "@/components/KitchenPanel";
+import ModeCard from "@/components/ModeCard";
+import PricingBlock from "@/components/PricingBlock";
+import Reveal from "@/components/Reveal";
+import { RunExampleButton, StartButton } from "@/components/RunButton";
+import StartDialog from "@/components/StartDialog";
+import Tilt from "@/components/Tilt";
 
 export const metadata: Metadata = {
   title: "Sedulus POS — Restaurant Billing & Management Software | India",
@@ -17,10 +26,24 @@ const integrations = [
   { name: "Zomato", mark: "Z" },
   { name: "Paytm", mark: "Pt" },
   { name: "PhonePe", mark: "Pe" },
-  { name: "Google Pay", mark: "GP" },
   { name: "Razorpay", mark: "Rp" },
-  { name: "Tally", mark: "Ta" },
-  { name: "WhatsApp Business", mark: "WA" },
+];
+
+const traceRows = [
+  { label: "Menu selection", bar: "76%", time: "1.2 s" },
+  { label: "KOT generated", bar: "21%", time: "0.3 s" },
+  { label: "Kitchen notified", bar: "43%", time: "0.5 s" },
+  { label: "Bill printed", bar: "57%", time: "0.3 s" },
+];
+
+const bars = [
+  { day: "mon", h: 52 },
+  { day: "tue", h: 66 },
+  { day: "wed", h: 61 },
+  { day: "thu", h: 96 },
+  { day: "fri", h: 118 },
+  { day: "sat", h: 148, pink: true },
+  { day: "sun", h: 126 },
 ];
 
 const capabilities = [
@@ -65,13 +88,6 @@ const steps = [
   },
 ];
 
-const stats = [
-  { value: "15,000+", label: "restaurants", note: "from single outlets to chains" },
-  { value: "50Cr+", label: "orders processed", note: "dine-in, takeaway and delivery" },
-  { value: "99.9%", label: "uptime", note: "keeps billing even offline" },
-  { value: "150+", label: "cities", note: "across india" },
-];
-
 const testimonials = [
   {
     quote:
@@ -96,620 +112,478 @@ const testimonials = [
   },
 ];
 
-const plans = [
-  {
-    step: "01 / start small",
-    name: "Starter",
-    price: "Free",
-    period: "forever",
-    description: "For new restaurants getting started with digital billing.",
-    features: ["1 outlet, 1 device", "Basic POS billing", "KOT printing", "GST invoicing"],
-    cta: "Get Started Free",
-    featured: false,
-  },
-  {
-    step: "02 / grow steadily",
-    name: "Pro",
-    price: "₹1,999",
-    period: "/month",
-    description: "For growing restaurants that need full control.",
-    features: [
-      "1 outlet, unlimited devices",
-      "Kitchen Display System (KDS)",
-      "Inventory management",
-      "Swiggy & Zomato integration",
-    ],
-    cta: "Start 14-Day Free Trial",
-    featured: true,
-  },
-  {
-    step: "03 / scale up",
-    name: "Enterprise",
-    price: "₹4,999",
-    period: "/outlet/month",
-    description: "For chains and franchises with centralised management.",
-    features: [
-      "Everything in Pro",
-      "Unlimited outlets",
-      "Central menu & pricing control",
-      "Dedicated account manager",
-    ],
-    cta: "Contact Sales",
-    featured: false,
-  },
-];
-
-const traceRows = [
-  { label: "Menu selection", bar: "76%", time: "1.2s" },
-  { label: "KOT generated", bar: "21%", time: "0.3s" },
-  { label: "Kitchen notified", bar: "43%", time: "0.5s" },
-  { label: "Bill printed", bar: "57%", time: "0.3s" },
-];
-
-const bars = [
-  { day: "mon", h: 52 },
-  { day: "tue", h: 66 },
-  { day: "wed", h: 61 },
-  { day: "thu", h: 88 },
-  { day: "fri", h: 118 },
-  { day: "sat", h: 148, pink: true },
-  { day: "sun", h: 126 },
-];
-
-function FeatureCopy({
-  index,
-  label,
-  title,
-  link,
-  className = "",
-  children,
-}: {
-  index: string;
-  label: string;
-  title: ReactNode;
-  link?: { href: string; label: string };
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className={`max-w-[380px] ${className}`}>
-      <span className="micro mb-5 block text-[#a58ba0]">
-        {index} / {label}
-      </span>
-      <h3 className="mb-4 text-[28px] font-medium leading-[1.2] tracking-[-0.04em]">{title}</h3>
-      <p className="text-[15px] leading-[1.8] text-[#a39aa3]">{children}</p>
-      {link && (
-        <Link
-          href={link.href}
-          className="mt-6 inline-flex items-center gap-3 text-[14px] text-[#ddd7dd] transition-colors hover:text-primary"
-        >
-          {link.label} <span className="text-primary" aria-hidden="true">&#8599;</span>
-        </Link>
-      )}
-    </div>
-  );
-}
-
 export default function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section id="top" className="relative mx-auto w-[min(1280px,88%)]">
+      <section className="hero section-shell" id="top" aria-labelledby="hero-heading">
         <div className="hero-grid" aria-hidden="true" />
-        <div className="grid items-center gap-14 pb-24 pt-16 md:min-h-[820px] md:grid-cols-[.9fr_1.1fr] md:gap-6">
-          <div className="relative z-[2]">
-            <span className="eyebrow mb-8 flex w-fit rounded-[4px]">
-              <span className="status-dot" /> trusted by 15,000+ restaurants across india
-            </span>
-            <h1 className="text-[clamp(46px,5.2vw,76px)] font-medium leading-[1.04] tracking-[-0.057em]">
-              Your Restaurant,
-              <br />
-              <em className="inline-block pb-2 text-[1.11em] leading-[.98] tracking-[-0.045em] text-[#f3e9f1]">
-                Simplified.
-              </em>
-            </h1>
-            <p className="mb-9 mt-7 max-w-[470px] text-[16px] leading-[1.75] text-[#a8a2a7]">
-              From billing to kitchen to delivery — Sedulus POS handles it all. The complete restaurant management
-              platform that works even when the internet doesn&apos;t.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link href="/contact" className="btn-primary">
-                Start 14-Day Free Trial <span aria-hidden="true">&#8599;</span>
-              </Link>
-              <Link href="/contact" className="btn-glass">
-                Request a Demo
-              </Link>
-            </div>
-            <p className="mt-5 font-mono text-[11px] leading-[1.7] text-[#8a8590]">
-              no credit card required / setup in 15 minutes / cancel anytime
-            </p>
+        <div className="hero-copy">
+          <span className="eyebrow">
+            <span className="status-dot" /> trusted by 15,000+ restaurants across india
+          </span>
+          <h1 id="hero-heading">
+            Your Restaurant,{" "}
+            <br />
+            <em>Simplified.</em>
+          </h1>
+          <p>
+            From billing to kitchen to delivery — Sedulus POS handles it all.{" "}
+            <br />
+            The complete restaurant management platform{" "}
+            <br className="desktop-break" /> that works even when the internet doesn&apos;t.
+          </p>
+          <div className="hero-actions">
+            <Link className="button" href="/contact">
+              Start 14-Day Free Trial <span aria-hidden="true">↗</span>
+            </Link>
+            <RunExampleButton />
           </div>
-
-          <div className="relative min-w-0" style={{ perspective: 1200 }}>
-            <div className="window-aura" aria-hidden="true" />
-            <div className="workflow-window">
-              <div
-                className="flex min-h-[54px] items-center justify-between gap-3 border-b border-white/[0.06] px-5"
-                style={{ borderRadius: "14px 14px 0 0" }}
-              >
-                <div className="flex items-center gap-2.5 text-[13px] text-[#bfb7c0]">
-                  <span className="font-mono text-[13px] text-primary">s/</span>
-                  <span>POS Billing</span>
-                  <span className="mx-0.5 hidden h-3 w-px bg-[#49414c] sm:block" />
-                  <span className="micro hidden text-[#a294a5] sm:inline">live view</span>
-                </div>
-                <span className="micro flex items-center gap-1.5 text-primary-light">
-                  <span className="status-dot" /> order in progress
-                </span>
-              </div>
-              <Image
-                src="/screenshots/pos-billing.jpg"
-                alt="Sedulus POS billing interface showing menu items, order management, and dine-in billing"
-                width={800}
-                height={600}
-                sizes="(min-width: 768px) 55vw, 92vw"
-                className="block h-auto w-full"
-                priority
-              />
-              <div
-                className="micro flex min-h-[38px] items-center justify-between border-t border-white/[0.06] px-5 text-[#8d8294]"
-                style={{ borderRadius: "0 0 14px 14px" }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <span className="status-dot" style={{ width: 4, height: 4 }} /> live workspace
-                </span>
-                <span>B-1247</span>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-7 left-[8%] z-[3] flex items-center gap-3 rounded-[10px] border border-primary/30 bg-[#1b131e] px-4 py-3 shadow-[0_15px_40px_rgb(0_0_0/45%)] md:left-[14%]">
-              <span className="grid h-7 w-7 place-items-center rounded-full border border-primary/30 bg-primary/[0.07] text-primary">
-                <Check />
-              </span>
-              <div>
-                <strong className="mb-0.5 block text-[13px] font-medium">Order #1247</strong>
-                <span className="micro">Bill generated in 2.3s</span>
-              </div>
-            </div>
-          </div>
+          <span className="micro hero-note">no credit card required / setup in 15 minutes / cancel anytime</span>
         </div>
 
-        <RevealOnScroll>
-          <div className="border-t border-white/10 pt-6">
-            <div className="micro mb-6 flex items-center justify-between gap-4">
-              <span>your tools, already on speaking terms.</span>
-              <Link href="/features#integrations" className="transition-colors hover:text-primary">
-                and whatever&apos;s next. <span className="text-primary" aria-hidden="true">&#8599;</span>
-              </Link>
-            </div>
-            <ul className="m-0 flex list-none flex-wrap items-center gap-x-9 gap-y-5 p-0">
-              {integrations.map((app) => (
-                <li key={app.name} className="flex items-center gap-2.5 text-[14px] text-[#a39ca3]">
-                  <span
-                    className="grid h-8 w-8 place-items-center rounded-lg border border-white/[0.09] bg-white/[0.03] text-[12px] font-semibold text-[#c8bfc9]"
-                    style={{ boxShadow: "inset 0 1px rgb(255 255 255 / 3%)" }}
-                    aria-hidden="true"
-                  >
-                    {app.mark}
-                  </span>
-                  {app.name}
-                </li>
-              ))}
-            </ul>
+        <HeroWindow />
+
+        <div className="integration-strip">
+          <div className="micro integration-label">
+            your tools, already{" "}
+            <br />
+            on speaking terms.
           </div>
-        </RevealOnScroll>
+          {integrations.map((app) => (
+            <div className="integration" key={app.name}>
+              <span className="app-icon" aria-hidden="true">
+                {app.mark}
+              </span>
+              <span>{app.name}</span>
+            </div>
+          ))}
+          <Link className="integration-tail micro" href="/features#integrations">
+            + Google Pay, Tally, WhatsApp & more ↗
+          </Link>
+        </div>
+        <div className="hero-bottom micro">
+          <span>01 — built for the rush</span>
+          <a href="#how-it-works">
+            follow the flow <span aria-hidden="true">↓</span>
+          </a>
+        </div>
       </section>
 
-      {/* PLATFORM */}
-      <section id="platform" className="mx-auto mt-28 w-[min(1280px,88%)] border-t border-white/10 pt-28">
-        <SectionHead
-          eyebrow="from order to kitchen to table"
-          title="Less juggling."
-          accent="More serving."
-          aside="Every order, every table, every kitchen station — connected in real time. Set it up once, and let your restaurant run smoother."
-        />
+      <section className="how-section section-shell" id="how-it-works">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> from order to kitchen to table
+            </span>
+            <h2>
+              Less juggling.{" "}
+              <br />
+              <em>More serving.</em>
+            </h2>
+          </div>
+          <p>
+            Every order, every table, every kitchen station —{" "}
+            <br />
+            connected in real time. Set it up once,{" "}
+            <br />
+            and let your restaurant run smoother.
+          </p>
+        </Reveal>
 
-        <RevealOnScroll>
-          <article className="grid items-center gap-10 py-14 md:grid-cols-[.8fr_1fr] md:gap-[10%]">
-            <FeatureCopy
-              index="01"
-              label="lightning-fast billing"
-              title={
-                <>
-                  Bill in seconds.
-                  <br />
-                  Not minutes.
-                </>
-              }
-              link={{ href: "/features", label: "See billing features" }}
-            >
+        <Reveal as="article" className="feature-row">
+          <div className="feature-copy">
+            <span className="micro step-number">01 / lightning-fast billing</span>
+            <h3>
+              Bill in seconds.{" "}
+              <br />
+              Not minutes.
+            </h3>
+            <p>
               Generate bills in under 3 seconds. Touch-optimised POS with smart menu search, split bills, and instant KOT
               printing.
-            </FeatureCopy>
-            <div
-              role="img"
-              aria-label="Sample billing trace for one order: menu selection, KOT generated, kitchen notified, bill printed"
-              className="glass-panel p-7"
-            >
-              <div className="micro mb-2 flex items-center justify-between border-b border-white/[0.06] pb-5">
-                <span className="flex items-center gap-2">
-                  <span className="status-dot" style={{ width: 4, height: 4 }} /> order B-1247
-                </span>
-                <span>billing trace / sample</span>
-              </div>
-              {traceRows.map((row) => (
-                <div
-                  key={row.label}
-                  className="grid grid-cols-[14px_minmax(104px,150px)_1fr_40px] items-center gap-3 border-b border-white/[0.04] py-3.5 font-mono text-[12px] text-[#d2c9d2]"
-                >
-                  <Check className="h-3 w-3 text-[#bb87a9]" />
-                  <span>{row.label}</span>
-                  <div className="trace-rail">
-                    <span style={{ width: row.bar }} />
-                  </div>
-                  <span className="micro text-right text-[#8d8294]">{row.time}</span>
-                </div>
-              ))}
-              <div className="micro mt-3 flex justify-between border-t border-white/[0.06] pt-4 text-[#8d8294]">
-                <span>every step accounted for.</span>
-                <span>2.3s total</span>
-              </div>
+            </p>
+            <StartButton>Explore an example</StartButton>
+          </div>
+          <Tilt className="trace-panel glass-panel">
+            <div className="panel-heading micro">
+              <span>
+                <span className="status-dot" /> order O-1042
+              </span>
+              <span>billing trace</span>
             </div>
-          </article>
-        </RevealOnScroll>
+            {traceRows.map((row) => (
+              <div className="trace-row" key={row.label}>
+                <span className="trace-check">✓</span>
+                <span>{row.label}</span>
+                <div className="trace-rail">
+                  <span style={{ "--bar": row.bar } as CSSProperties} />
+                </div>
+                <span className="micro">{row.time}</span>
+              </div>
+            ))}
+            <div className="trace-axis micro">
+              <span>0</span>
+              <span>0.5</span>
+              <span>1.0</span>
+              <span>1.5 s</span>
+            </div>
+            <div className="panel-footnote micro">
+              <span>every step accounted for.</span>
+              <span>2.3 s total</span>
+            </div>
+          </Tilt>
+        </Reveal>
 
-        <RevealOnScroll>
-          <article className="grid items-center gap-10 py-14 md:grid-cols-[1fr_.8fr] md:gap-[10%]">
-            <FeatureCopy
-              className="md:order-2"
-              index="02"
-              label="kitchen display system"
-              title={
-                <>
-                  Your kitchen.
-                  <br />
-                  Always in sync.
-                </>
-              }
-              link={{ href: "/features#kds", label: "Explore the kitchen display" }}
-            >
+        <Reveal as="article" className="feature-row feature-row--reverse">
+          <KitchenPanel />
+          <div className="feature-copy">
+            <span className="micro step-number">02 / kitchen display system</span>
+            <h3>
+              Your kitchen.{" "}
+              <br />
+              Always in sync.
+            </h3>
+            <p>
               Real-time order tracking for your kitchen. Colour-coded priorities, auto-routing to stations, and average
               prep-time analytics.
-            </FeatureCopy>
-            <div className="md:order-1">
-              <Shot
-                label="kitchen"
-                status="live"
-                src="/screenshots/kitchen-display.jpg"
-                alt="Kitchen display system showing active KOTs with preparation status"
-                sizes="(min-width: 768px) 50vw, 92vw"
-              />
-            </div>
-          </article>
-        </RevealOnScroll>
+            </p>
+            <span className="micro feature-note">try the ticket on the left ↖</span>
+          </div>
+        </Reveal>
 
-        <RevealOnScroll>
-          <article className="grid items-center gap-10 py-14 md:grid-cols-[.8fr_1fr] md:gap-[10%]">
-            <FeatureCopy
-              index="03"
-              label="real-time analytics"
-              title={
-                <>
-                  Every sale leaves
-                  <br />
-                  a clear paper trail.
-                </>
-              }
-              link={{ href: "/features", label: "See reporting features" }}
-            >
+        <Reveal as="article" className="feature-row">
+          <div className="feature-copy">
+            <span className="micro step-number">03 / real-time analytics</span>
+            <h3>
+              Every sale leaves{" "}
+              <br />a clear paper trail.
+            </h3>
+            <p>
               Track sales, top dishes, peak hours, and staff performance from any device. Daily P&amp;L, outlet
               comparison, and trend reports.
-            </FeatureCopy>
-            <div
-              role="img"
-              aria-label="Sample bar chart of daily revenue across a week, peaking on Saturday"
-              className="glass-panel p-6 pb-5"
-            >
-              <div className="micro flex items-center justify-between">
-                <span>daily revenue, this week</span>
-                <span>
-                  <span className="text-primary">+24.8%</span> vs last week
-                </span>
-              </div>
-              <div className="flex h-[230px] items-end justify-around px-2 pb-9 pt-6" style={{ perspective: 600 }}>
-                {bars.map((bar) => (
-                  <div key={bar.day} className="relative flex h-full w-[10%] items-end justify-center">
-                    <div className={`column-3d w-full ${bar.pink ? "column-pink" : ""}`} style={{ height: bar.h }} />
-                    <span className="micro absolute inset-x-0 text-center" style={{ top: "calc(100% + 12px)" }}>
-                      {bar.day}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="micro flex justify-between pt-4 text-[#8d8294]">
-                <span>sample workspace / last 7 days</span>
-                <span>₹4,28,640</span>
-              </div>
+            </p>
+            <a className="text-button" href="#workspace">
+              Open the sample workspace <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <Tilt className="volume-panel glass-panel">
+            <div className="panel-heading micro">
+              <span>sales, day by day</span>
+              <span>
+                <span className="pink-text">+24.8%</span> this week
+              </span>
             </div>
-          </article>
-        </RevealOnScroll>
+            <div className="columns-3d" role="img" aria-label="Sample daily sales by weekday, highest on Saturday">
+              {bars.map((bar) => (
+                <div className="column-item" key={bar.day}>
+                  <div className={`column${bar.pink ? " column--pink" : ""}`} style={{ "--height": `${bar.h}px` } as CSSProperties}>
+                    <i />
+                  </div>
+                  <span className="micro">{bar.day}</span>
+                </div>
+              ))}
+            </div>
+            <div className="panel-footnote micro">
+              <span>sample workspace / last 7 days</span>
+              <span>₹4,28,640</span>
+            </div>
+          </Tilt>
+        </Reveal>
 
-        <div className="grid gap-4 pt-8 md:grid-cols-3">
+        <div className="capability-grid">
           {capabilities.map((item) => (
-            <RevealOnScroll key={item.title} className="h-full">
-              <article className="glass-panel h-full p-7">
-                <span className="mb-6 grid h-11 w-11 place-items-center rounded-xl border border-primary/25 bg-primary/[0.07] text-primary">
-                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d={item.path} />
-                  </svg>
-                </span>
-                <h3 className="mb-3 text-[21px] font-medium tracking-[-0.025em]">{item.title}</h3>
-                <p className="text-[14px] leading-[1.8] text-[#a39aa3]">{item.description}</p>
-              </article>
-            </RevealOnScroll>
+            <Reveal as="article" className="capability-card glass-panel" key={item.title}>
+              <span className="capability-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d={item.path} />
+                </svg>
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* WORKSPACE */}
-      <section id="workspace" className="mx-auto w-[min(1280px,88%)] pb-28 pt-28">
-        <SectionHead
-          eyebrow="a working view, not a brochure"
-          title="Built for real"
-          accent="restaurant operations."
-          aside="Real screens from the product, not mock-ups. What you see here is exactly what your staff uses on the floor."
-        />
-        <div className="grid gap-4 md:grid-cols-3">
-          <RevealOnScroll className="h-full md:col-span-2">
-            <Shot
-              label="dashboard"
-              status="today"
-              src="/screenshots/dashboard.jpg"
-              alt="Restaurant dashboard showing daily sales, active orders, and live order pulse"
-              sizes="(min-width: 768px) 60vw, 92vw"
-            />
-          </RevealOnScroll>
-
-          <RevealOnScroll className="h-full">
-            <div className="glass-panel flex h-full min-h-[280px] flex-col items-center justify-center p-6 text-center">
-              <span className="micro mb-5">offline-ready uptime</span>
-              <div className="relative h-[150px] w-[150px]">
-                <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90" aria-hidden="true">
-                  <circle className="donut-track" cx="60" cy="60" r="47" />
-                  <circle className="donut-fill" cx="60" cy="60" r="47" />
-                </svg>
-                <strong className="absolute inset-0 flex items-center justify-center text-[34px] font-normal tracking-[-0.04em]">
-                  99.9<span className="pt-1 text-[18px]">%</span>
-                </strong>
-              </div>
-              <p className="micro mt-5 max-w-[200px]">works even when the internet doesn&apos;t.</p>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll className="h-full">
-            <Shot
-              label="tables"
-              status="floor view"
-              src="/screenshots/tables.jpg"
-              alt="Floor management showing table status"
-              sizes="(min-width: 768px) 30vw, 92vw"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll className="h-full">
-            <Shot
-              label="orders"
-              status="today"
-              src="/screenshots/orders.jpg"
-              alt="Order history showing today's orders"
-              sizes="(min-width: 768px) 30vw, 92vw"
-            />
-          </RevealOnScroll>
-          <RevealOnScroll className="h-full">
-            <Shot
-              label="menu"
-              status="catalogue"
-              src="/screenshots/menu.jpg"
-              alt="Menu management interface"
-              sizes="(min-width: 768px) 30vw, 92vw"
-            />
-          </RevealOnScroll>
+      <section className="fold-section section-shell" aria-label="A little less busywork">
+        <div className="fold-stage">
+          <FoldCard />
         </div>
       </section>
 
-      {/* STATS */}
-      <RevealOnScroll>
-        <section className="mx-auto w-[min(1280px,88%)] border-y border-white/10 py-14">
-          <dl className="m-0 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <dt className="micro text-[#a58ba0]">{stat.label}</dt>
-                <dd className="m-0">
-                  <strong className="mb-2 mt-3 block text-[clamp(38px,4.4vw,60px)] font-normal leading-[1.15] tracking-[-0.04em]">
-                    {stat.value}
-                  </strong>
-                  <span className="micro block">{stat.note}</span>
-                </dd>
+      <section className="reliability-section section-shell" id="reliability">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> built underneath the pretty parts
+            </span>
+            <h2>
+              Quietly dependable.{" "}
+              <br />
+              <em>Even offline.</em>
+            </h2>
+          </div>
+          <p>
+            Billing on your local network, orders synced{" "}
+            <br />
+            when the internet returns. The details that{" "}
+            <br />
+            keep a service moving, even when the Wi-Fi doesn&apos;t.
+          </p>
+        </Reveal>
+        <div className="reliability-grid">
+          <Reveal as="article" className="runtime-card glass-panel">
+            <h3>Different apps. One kitchen.</h3>
+            <p>Swiggy, Zomato and payments in one clear view of what comes in and where it goes.</p>
+            <div className="connection-map" role="img" aria-label="Swiggy, Zomato, payments and Tally connected through Sedulus POS">
+              <svg viewBox="0 0 480 220" aria-hidden="true">
+                <path d="M105 60C175 60 160 110 240 110M105 160C175 160 160 110 240 110M375 60C305 60 320 110 240 110M375 160C305 160 320 110 240 110" />
+              </svg>
+              <span className="connection-app connection-app--one">
+                <b>Sw</b>
+                <span className="micro">swiggy</span>
+              </span>
+              <span className="connection-app connection-app--two">
+                <b>Z</b>
+                <span className="micro">zomato</span>
+              </span>
+              <div className="connection-core" aria-hidden="true">
+                <BrandMark />
               </div>
-            ))}
-          </dl>
-        </section>
-      </RevealOnScroll>
+              <span className="connection-app connection-app--three">
+                <b>₹</b>
+                <span className="micro">payments</span>
+              </span>
+              <span className="connection-app connection-app--four">
+                <b>Ta</b>
+                <span className="micro">tally</span>
+              </span>
+            </div>
+            <span className="panel-footnote micro">the wiring fades away. the service doesn&apos;t.</span>
+          </Reveal>
+          <ModeCard />
+        </div>
+      </section>
 
-      {/* HOW IT WORKS */}
-      <section id="how-it-works" className="mx-auto w-[min(1280px,88%)] pb-8 pt-28">
-        <SectionHead
-          eyebrow="up and running"
-          title="Up and running in"
-          accent="3 simple steps."
-          aside="From sign-up to your first bill, our team helps with menu migration and staff training along the way."
-        />
-        <ol className="m-0 grid list-none gap-4 p-0 md:grid-cols-3">
+      <section className="workspace-section section-shell" id="workspace">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> a working view, not another dashboard
+            </span>
+            <h2>
+              A little clarity.{" "}
+              <br />
+              <em>For the whole service.</em>
+            </h2>
+          </div>
+          <p>
+            What&apos;s selling, what&apos;s cooking, and what needs you.{" "}
+            <br />
+            All in one place. All of the numbers below{" "}
+            <br />
+            are illustrative sample data.
+          </p>
+        </Reveal>
+        <div className="workspace-toolbar">
+          <span className="micro">
+            <span className="status-dot" /> SAMPLE WORKSPACE <span className="toolbar-separator">/</span> last 7 days
+          </span>
+          <ExportButton />
+        </div>
+        <div className="dashboard-grid">
+          <HeatmapCard />
+          <Reveal as="article" className="donut-card glass-panel">
+            <span className="micro">uptime, even offline</span>
+            <div className="donut">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle className="donut-track" cx="60" cy="60" r="47" />
+                <circle className="donut-fill" cx="60" cy="60" r="47" style={{ strokeDasharray: "295 295.31" }} />
+              </svg>
+              <strong>
+                99.9<span>%</span>
+              </strong>
+            </div>
+            <p className="micro">works even when the internet doesn&apos;t</p>
+          </Reveal>
+          <PeopleCard />
+          <Reveal as="article" className="recovery-card glass-panel">
+            <span className="micro">a rush hour. already handled.</span>
+            <svg viewBox="0 0 310 90" aria-label="Illustrative chart of a busy hour being served" role="img">
+              <path className="recovery-muted" d="M0 64C40 64 40 10 80 25S130 90 165 53 215 24 250 44 280 58 310 25" />
+              <path className="recovery-pink" d="M0 52C25 63 50 51 85 57S145 31 170 36 220 67 250 37 285 46 310 22" />
+            </svg>
+            <div className="recovery-legend micro">
+              <span>
+                <i /> served
+              </span>
+              <span>
+                <i /> queued
+              </span>
+            </div>
+          </Reveal>
+          <RunLogCard />
+        </div>
+      </section>
+
+      <section className="results-section section-shell" id="customers">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> small steps. a bigger picture.
+            </span>
+            <h2>
+              What a little less{" "}
+              <br />
+              <em>manual can look like.</em>
+            </h2>
+          </div>
+          <p>
+            Numbers from restaurants running Sedulus POS,{" "}
+            <br />
+            from single outlets to chains.{" "}
+            <br />
+            The best result is time for something else.
+          </p>
+        </Reveal>
+        <Reveal className="results-grid">
+          <article>
+            <span className="micro">orders processed</span>
+            <strong>50Cr+</strong>
+            <span className="micro">and counting every day</span>
+            <svg viewBox="0 0 300 70" aria-hidden="true">
+              <path d="M0 60 21 53 42 55 63 41 84 45 105 30 126 33 147 20 168 29 189 14 210 17 231 9 252 12 273 2 300 5" />
+            </svg>
+            <p>From dine-in to delivery, every order tracked and accounted for.</p>
+          </article>
+          <article>
+            <span className="micro">restaurants live</span>
+            <strong>15,000+</strong>
+            <span className="micro">across 150+ cities in india</span>
+            <div className="time-bars" aria-hidden="true">
+              {Array.from({ length: 15 }, (_, index) => (
+                <i key={index} />
+              ))}
+            </div>
+            <p>Single outlets to multi-outlet chains, all on one platform.</p>
+          </article>
+          <article>
+            <span className="micro">uptime</span>
+            <strong>
+              99.9<small>%</small>
+            </strong>
+            <span className="micro">keeps billing even offline</span>
+            <div className="result-progress" aria-hidden="true">
+              <i style={{ width: "99.9%" }} />
+            </div>
+            <p>Billing runs on your local network, so a dropped connection never stops a service.</p>
+          </article>
+        </Reveal>
+      </section>
+
+      <section className="steps-section section-shell" id="get-started">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> up and running
+            </span>
+            <h2>
+              Up and running in{" "}
+              <br />
+              <em>3 simple steps.</em>
+            </h2>
+          </div>
+          <p>
+            From sign-up to your first bill, our team{" "}
+            <br />
+            helps with menu migration and staff training{" "}
+            <br />
+            along the way.
+          </p>
+        </Reveal>
+        <ol className="steps-grid">
           {steps.map((item) => (
-            <li key={item.step} className="h-full">
-              <RevealOnScroll className="h-full">
-                <div className="glass-panel h-full p-7">
-                  <span className="block text-[56px] italic leading-none text-primary/80" style={{ fontFamily: "var(--font-playfair), serif" }}>
-                    {item.step}
-                  </span>
-                  <h3 className="mb-3 mt-6 text-[22px] font-medium tracking-[-0.025em]">{item.title}</h3>
-                  <p className="text-[14px] leading-[1.8] text-[#a39aa3]">{item.description}</p>
-                </div>
-              </RevealOnScroll>
-            </li>
+            <Reveal as="li" className="step-card glass-panel" key={item.step}>
+              <span className="step-index">{item.step}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </Reveal>
           ))}
         </ol>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section id="stories" className="mx-auto w-[min(1280px,88%)] pb-28 pt-24">
-        <SectionHead
-          eyebrow="in their words"
-          title="Owners who run"
-          accent="busy kitchens."
-          aside="Feedback from restaurant owners and managers using Sedulus POS every day."
-        />
-        <div className="grid gap-5 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <RevealOnScroll key={t.name} className="h-full">
-              <figure className="glass-panel m-0 flex h-full flex-col justify-between gap-10 p-7">
-                <div>
-                  <span className="mb-3 block text-[56px] leading-[.6] text-primary" style={{ fontFamily: "var(--font-playfair), serif" }} aria-hidden="true">
-                    &ldquo;
-                  </span>
-                  <blockquote className="m-0 text-[19px] leading-[1.55] tracking-[-0.01em] text-[#ebe5eb]" style={{ fontFamily: "var(--font-playfair), serif" }}>
-                    {t.quote}
-                  </blockquote>
-                </div>
-                <figcaption className="flex items-center gap-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-primary/30 bg-primary/10 text-[13px] font-semibold text-primary">
-                    {t.initials}
-                  </span>
-                  <span>
-                    <strong className="block text-[14px] font-medium">{t.name}</strong>
-                    <span className="micro">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </RevealOnScroll>
-          ))}
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section id="pricing" className="mx-auto w-[min(1280px,88%)] border-t border-white/10 pb-24 pt-28">
-        <SectionHead
-          eyebrow="simple, transparent pricing"
-          title="More features."
-          accent="Not a bigger bill."
-          aside="Start free. Upgrade when you grow. No hidden fees, no long-term contracts."
-        />
-        <div className="grid gap-4 md:grid-cols-3">
-          {plans.map((plan) => (
-            <RevealOnScroll key={plan.name} className="h-full">
-              <article
-                className={`glass-panel relative flex h-full flex-col p-7 ${
-                  plan.featured ? "border-primary/50 shadow-[0_0_38px_rgb(255_131_202/8%)]" : ""
-                }`}
-              >
-                {plan.featured && (
-                  <span className="absolute right-5 top-5 rounded border border-primary/30 bg-primary/10 px-2 py-1 font-mono text-[10px] tracking-wide text-primary">
-                    MOST POPULAR
-                  </span>
-                )}
-                <span className="micro text-[#a58ba0]">{plan.step}</span>
-                <h3 className="mt-4 text-[24px] font-medium tracking-[-0.02em]">{plan.name}</h3>
-                <div className="mt-3 flex items-baseline gap-2">
-                  <span className="text-[40px] leading-none tracking-[-0.04em]">{plan.price}</span>
-                  <span className="micro">{plan.period}</span>
-                </div>
-                <p className="mt-4 text-[14px] leading-[1.7] text-[#a39aa3]">{plan.description}</p>
-                <ul className="m-0 my-6 flex flex-1 list-none flex-col gap-3 p-0">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-[14px] text-[#cbc2ca]">
-                      <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/contact" className={`${plan.featured ? "btn-primary" : "btn-glass"} w-full`}>
-                  {plan.cta} <span aria-hidden="true">&#8599;</span>
-                </Link>
-              </article>
-            </RevealOnScroll>
-          ))}
-        </div>
-        <p className="micro mt-6 text-center">
-          <Link href="/pricing" className="text-[#c8bfc9] transition-colors hover:text-primary">
-            compare every feature and add-on <span className="text-primary" aria-hidden="true">&#8599;</span>
-          </Link>
-        </p>
-      </section>
-
-      {/* CLOSING CTA */}
-      <RevealOnScroll>
-        <section className="mx-auto grid w-[min(1280px,88%)] gap-5 pb-24 pt-6 md:grid-cols-[.75fr_1fr]">
-          <div className="glass-panel relative flex min-h-[300px] flex-col justify-between overflow-hidden p-8">
-            <Link href="/" className="inline-flex w-fit items-center gap-2.5 text-[18px] font-semibold tracking-[-0.6px]">
-              <span
-                className="inline-flex h-7 w-7 items-center justify-center rounded-[9px] text-sm font-bold text-[#160a12]"
-                style={{ background: "var(--pink)", boxShadow: "inset 0 1px 2px rgb(255 255 255 / 55%)" }}
-              >
-                S
-              </span>
-              Sedulus POS
-            </Link>
-            <div className="relative z-[1]">
-              <p className="text-[19px] leading-[1.4] tracking-[-0.3px]">
-                Good restaurants deserve
-                <br />a smarter system.
-              </p>
-              <span className="micro mt-4 block">built for the space between your kitchen and your counter.</span>
-            </div>
-            <div className="absolute right-[12%] top-[26%] flex gap-2" style={{ transform: "rotate(-24deg)" }} aria-hidden="true">
-              {[74, 103, 62].map((h, i) => (
-                <span
-                  key={h}
-                  className="w-4 rounded-md"
-                  style={{
-                    height: h,
-                    marginTop: i === 1 ? -15 : i === 2 ? 7 : 0,
-                    background: "linear-gradient(90deg, #372b37, #564050 50%, #211b24)",
-                    boxShadow: "4px 4px 0 #160f17",
-                    transform: "skewY(-28deg)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-[15px] border border-[#ffa4d8] bg-primary p-8 text-[#291020] md:px-10 md:py-9">
-            <span className="mono block text-[11px] tracking-wide text-[#5a1c41]">14-DAY FREE TRIAL</span>
-            <h2 className="mb-4 mt-5 text-[clamp(32px,3.6vw,48px)] font-medium leading-[1.08] tracking-[-0.045em]">
-              Ready to transform
+      <section className="quotes-section section-shell" id="stories">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> in their words
+            </span>
+            <h2>
+              Owners who run{" "}
               <br />
-              <em className="text-[1.1em]">your restaurant?</em>
+              <em>busy kitchens.</em>
             </h2>
-            <p className="mb-8 max-w-[440px] text-[15px] leading-[1.7] text-[#4a1735]">
-              Join 15,000+ restaurants already using Sedulus POS. Start your free 14-day trial today — no credit card, no
-              commitment.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex min-h-[46px] items-center justify-center gap-4 rounded-full bg-[#100b10] px-7 text-[14px] font-semibold text-[color:var(--ink)] transition-transform hover:-translate-y-0.5"
-              >
-                Start Free Trial <span aria-hidden="true">&#8599;</span>
-              </Link>
-              <Link
-                href="/pricing"
-                className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#291020]/35 px-7 text-[14px] font-semibold text-[#291020] transition-colors hover:bg-[#291020]/10"
-              >
-                View Pricing
-              </Link>
-            </div>
           </div>
-        </section>
-      </RevealOnScroll>
+          <p>
+            Feedback from restaurant owners and managers{" "}
+            <br />
+            using Sedulus POS every day.
+          </p>
+        </Reveal>
+        <div className="quotes-grid">
+          {testimonials.map((item) => (
+            <Reveal as="figure" className="quote-card glass-panel" key={item.name}>
+              <blockquote>
+                <em>&ldquo;{item.quote}&rdquo;</em>
+              </blockquote>
+              <figcaption>
+                <span className="quote-avatar" aria-hidden="true">
+                  {item.initials}
+                </span>
+                <span>
+                  <strong>{item.name}</strong>
+                  <span className="micro">{item.role}</span>
+                </span>
+              </figcaption>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="pricing-section section-shell" id="pricing">
+        <Reveal className="section-heading">
+          <div>
+            <span className="eyebrow">
+              <span className="status-dot" /> simple, transparent pricing
+            </span>
+            <h2>
+              More features.{" "}
+              <br />
+              <em>Not a bigger bill.</em>
+            </h2>
+          </div>
+          <p>
+            Start free. Upgrade when you grow.{" "}
+            <br />
+            No hidden fees, no long-term contracts.{" "}
+            <br />
+            Estimate a plan from the outlets you run.
+          </p>
+        </Reveal>
+        <PricingBlock />
+      </section>
+
+      <ClosingCta
+        label="14-DAY FREE TRIAL"
+        title="Ready to transform"
+        accent="your restaurant?"
+        copy="Join 15,000+ restaurants already using Sedulus POS. Start your free 14-day trial today — no credit card, no commitment."
+        primary={{ href: "/contact", label: "Start free trial" }}
+        secondary={{ href: "/pricing", label: "View pricing" }}
+        footnote="start with a demo. see where it goes."
+      />
+
+      <StartDialog />
     </>
   );
 }

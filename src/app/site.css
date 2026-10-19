@@ -1,0 +1,376 @@
+/* Sedulus additions on top of the ported Relay design (globals.css).
+   Order matters: this file loads second, so equal-specificity rules here win. */
+
+/* ---------- brand + small fixes ---------- */
+.wordmark-sub { color: var(--pink); }
+.node-brand--trigger { color: #b7a9fa; background: #272039; font-weight: 700; font-style: italic; }
+.node-brand--approval { color: #c9acdc; background: #2d2336; }
+.approve-button[aria-pressed="true"] { background: #ffc0e3; box-shadow: 0 0 0 2px rgb(255 131 202 / 35%); }
+.reject-button[aria-pressed="true"] { color: white; border-color: #99728c; }
+.graph-tools button:disabled { opacity: .45; }
+.button:disabled { opacity: .55; transform: none; box-shadow: none; }
+.button--outline-dark { color: #291020; background: transparent; border-color: rgb(41 16 32 / 38%); }
+.button--outline-dark:hover { color: #291020; background: rgb(41 16 32 / 10%); box-shadow: none; }
+.cta-short { display: none; }
+main { display: block; }
+
+/* ---------- legibility floor ----------
+   The reference sets many labels at 5-8px. These lift every piece of real content to a readable
+   size at every width; phone-specific fitting happens in the media queries further down. */
+.eyebrow, .hero-copy .eyebrow, .section-heading .eyebrow, .demo-dialog .eyebrow { font-size: 9px; }
+h1 { font-size: clamp(42px, 4.7vw, 68px); }
+.hero-copy > p { font-size: 14px; max-width: 480px; }
+.hero-note { font-size: 9px; }
+.button { font-size: 12px; }
+.button--small { font-size: 11px; }
+.hero-actions .button { font-size: 12px; }
+.primary-nav a { font-size: 12px; }
+.system-status { font-size: 10px; }
+.window-title { font-size: 12px; }
+.window-title .micro, .run-status { font-size: 9px; }
+.graph-scale, .graph-caption, .branch-label { font-size: 8px; }
+.workflow-node strong { font-size: 11px; }
+.workflow-node .micro { font-size: 8px; }
+.console-heading, .console-row { font-size: 9px; }
+.window-bottom { font-size: 8px; }
+.run-toast strong { font-size: 11px; }
+.run-toast .micro { font-size: 8px; }
+.integration-label, .integration-tail, .hero-bottom { font-size: 9px; }
+.integration { font-size: 12px; }
+.section-heading > p { font-size: 13px; width: 320px; }
+.step-number, .feature-note { font-size: 9px; }
+.feature-copy p { font-size: 13px; }
+.text-button, .feature-copy .text-button { font-size: 12px; }
+.panel-heading, .panel-heading .micro, .trace-panel .panel-heading, .volume-panel .panel-heading { font-size: 9px; }
+.panel-footnote { font-size: 8px; }
+.trace-row { font-size: 10px; }
+.trace-row .micro { font-size: 9px; }
+.trace-axis { font-size: 8px; }
+.approval-message > div > strong { font-size: 12px; }
+.app-badge { font-size: 8px; }
+.approval-message p { font-size: 12px; }
+.approval-detail .micro { font-size: 8px; }
+.approval-detail strong { font-size: 20px; }
+.approval-detail strong span { font-size: 10px; }
+.approval-actions button { font-size: 10px; }
+.approval-message .approval-result { font-size: 9px; }
+.column-item > span { font-size: 8px; }
+.fold-card > .micro { font-size: 9px; }
+.reliability-grid h3 { font-size: 20px; }
+.reliability-grid p { font-size: 12px; }
+.connection-app b { font-size: 12px; }
+.connection-app .micro { font-size: 8px; }
+.region-choice strong { font-size: 9px; }
+.region-choice small, .region-choice > .micro { font-size: 8px; }
+.runtime-card > .panel-footnote, .regions-card > .panel-footnote { font-size: 9px; }
+.workspace-toolbar .micro { font-size: 9px; }
+.workspace-toolbar .text-button { font-size: 10px; }
+.heatmap-card .panel-heading, .heatmap-times, .heatmap-days, .outline-badge { font-size: 8px; }
+.donut-card > .micro, .donut-card p, .people-card > .micro, .recovery-card > .micro { font-size: 9px; }
+.recovery-legend, .live-log-card .panel-heading { font-size: 8px; }
+.log-entry { font-size: 9px; }
+.live-log-card .text-button { font-size: 10px; }
+.results-grid article > .micro { font-size: 9px; }
+.results-grid article > p { font-size: 12px; }
+.estimator-control > label, .range-labels, .estimate-plan > .micro { font-size: 8px; }
+.estimate-question h3 { font-size: 17px; }
+.estimate-question output { font-size: 12px; }
+.estimate-plan > span:not(.micro) { font-size: 15px; }
+.estimate-plan > div .micro { font-size: 9px; }
+.estimate-plan .button { font-size: 11px; }
+.price-card > .micro, .price-value .micro { font-size: 9px; }
+.price-card h3 { font-size: 18px; }
+.price-card p, .price-card li { font-size: 12px; }
+.price-card > .button { font-size: 11px; }
+.plan-badge { font-size: 8px !important; }
+.pricing-disclaimer { font-size: 9px; }
+.closing-brand > .micro, .closing-cta > .micro, .closing-cta > .micro:last-child { font-size: 9px; }
+.footer-top > .micro, .footer-bottom { font-size: 9px; }
+.footer-top a, .footer-top button { font-size: 11px; }
+.motion-control { font-size: 8px; }
+.demo-dialog label, .dialog-footnote { font-size: 9px; }
+.demo-dialog > p { font-size: 13px; }
+.demo-details { font-size: 12px; }
+.demo-dialog select { font-size: 12px; }
+.status-dialog #graphics-status { font-size: 10px; }
+.status-dialog { width: min(490px, calc(100% - 32px)); }
+
+/* ---------- sections the reference doesn't have ---------- */
+.capability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 34px; }
+.capability-card { padding: 26px; }
+.capability-icon { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 22px; border: 1px solid rgb(255 131 202 / 25%); border-radius: 11px; background: rgb(255 131 202 / 7%); color: var(--pink); }
+.capability-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.capability-card h3 { font-size: 18px; letter-spacing: -.4px; margin-bottom: 11px; }
+.capability-card p { font-size: 12px; line-height: 1.8; color: #9c929d; }
+
+.steps-section { padding-block: 40px 70px; }
+.steps-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.step-card { padding: 28px; }
+.step-index { display: block; font-family: var(--serif); font-style: italic; font-size: 54px; line-height: 1; letter-spacing: -.03em; color: var(--pink-light); }
+.step-card h3 { font-size: 19px; letter-spacing: -.4px; margin: 26px 0 12px; }
+.step-card p { font-size: 12px; line-height: 1.8; color: #9c929d; }
+
+.quotes-section { padding-block: 30px 90px; }
+.quotes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.quote-card { margin: 0; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 34px; }
+.quote-card blockquote { margin: 0; }
+.quote-card blockquote em { font-size: 21px; line-height: 1.4; letter-spacing: -.01em; color: #ece6ec; }
+.quote-card figcaption { display: flex; align-items: center; gap: 12px; }
+.quote-avatar { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgb(255 131 202 / 30%); background: rgb(255 131 202 / 10%); color: var(--pink); font: 10px var(--mono); }
+.quote-card strong { display: block; font-size: 12px; font-weight: 500; }
+
+.closing-copy { max-width: 430px; margin: -6px 0 24px; font-size: 13px; line-height: 1.7; color: #5a1f43; }
+.closing-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 17px; }
+.closing-cta .closing-actions .button { margin-bottom: 0; }
+
+/* ---------- inner pages ---------- */
+.page-hero { position: relative; padding-top: 70px; padding-bottom: 8px; }
+.page-hero .section-heading { margin-bottom: 40px; }
+.page-hero h1 { font-size: clamp(40px, 4.6vw, 64px); line-height: 1.06; letter-spacing: -.05em; }
+.page-hero h1 em { font-size: 1.12em; letter-spacing: -.035em; }
+.page-section { padding-block: 24px 90px; }
+
+.feature-nav { position: sticky; top: 72px; z-index: 10; border-block: 1px solid var(--line); background: rgb(5 6 7 / 77%); backdrop-filter: blur(18px); }
+.feature-nav-inner { width: min(1280px, 88%); margin-inline: auto; overflow-x: auto; scrollbar-width: none; }
+.feature-nav-inner::-webkit-scrollbar { display: none; }
+.feature-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; min-width: max-content; }
+.feature-nav a { display: block; padding: 15px 0; color: #99999f; font-size: 11px; white-space: nowrap; transition: color .2s; }
+.feature-nav a:hover { color: var(--pink); }
+.feature-block { scroll-margin-top: 150px; border-top: 1px solid var(--line); }
+.feature-block:first-of-type { border-top: 0; }
+.feature-block .feature-copy { max-width: 400px; }
+.feature-block .feature-copy h2 { font-size: clamp(28px, 2.6vw, 36px); line-height: 1.15; letter-spacing: -.04em; margin-bottom: 15px; }
+.feature-block .feature-copy h2 em { font-size: 1.08em; }
+.feature-list { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.feature-list li { display: flex; gap: 10px; font-size: 12px; line-height: 1.6; color: #b8a9b5; }
+.feature-list li::before { content: "✓"; flex-shrink: 0; color: #d697bd; font-size: 10px; margin-top: 1px; }
+.shot-panel { overflow: hidden; }
+.shot-panel .panel-heading { padding: 14px 20px; border-bottom: 1px solid rgb(255 255 255 / 6%); }
+.shot-panel img { display: block; width: 100%; height: auto; }
+.icon-panel { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; text-align: center; }
+.icon-panel-mark { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 20px; border: 1px solid rgb(255 131 202 / 25%); border-radius: 18px; background: rgb(255 131 202 / 7%); color: var(--pink); box-shadow: -3px 3px #7b355c, 0 0 50px rgb(255 131 202 / 14%); }
+.icon-panel-mark svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.addon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.addon-card { padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }
+.addon-card h3 { font-size: 16px; font-weight: 500; line-height: 1.35; letter-spacing: -.3px; }
+.addon-price { font: 13px var(--mono); color: var(--pink-light); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.faq-card { padding: 26px 28px; }
+.faq-card h3 { font-size: 17px; letter-spacing: -.4px; margin-bottom: 10px; }
+.faq-card p { font-size: 12px; line-height: 1.8; color: #9c929d; }
+.price-card--full ul { padding-block: 22px; }
+
+.timeline-panel { padding: 26px 28px 28px; }
+.timeline { list-style: none; margin: 24px 0 0; padding: 0 0 0 24px; border-left: 1px solid rgb(255 255 255 / 10%); }
+.timeline li { position: relative; display: flex; flex-direction: column; gap: 4px; padding-bottom: 24px; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: -28px; top: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 10px rgb(255 131 202 / 42%); }
+.timeline .micro { color: var(--pink); }
+.timeline li > span:not(.micro) { font-size: 13px; line-height: 1.6; color: #d4ccd4; }
+.mission-copy p { font-size: 13px; line-height: 1.85; color: #a39aa3; max-width: 470px; }
+.mission-copy p + p { margin-top: 18px; }
+.values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.value-card { padding: 28px; }
+.value-card h3 { font-size: 21px; letter-spacing: -.5px; margin: 16px 0 12px; }
+.value-card p { font-size: 12px; line-height: 1.8; color: #9c929d; }
+
+.contact-layout { position: relative; display: grid; grid-template-columns: .9fr 1.1fr; gap: 6%; align-items: start; padding-top: 70px; padding-bottom: 100px; }
+.contact-copy h1 { font-size: clamp(40px, 4.6vw, 64px); line-height: 1.06; letter-spacing: -.05em; }
+.contact-copy h1 em { font-size: 1.12em; letter-spacing: -.035em; }
+.contact-copy .eyebrow { margin-bottom: 22px; }
+.contact-lede { margin: 24px 0 36px; max-width: 420px; font-size: 14px; line-height: 1.8; color: #a09a9f; }
+.contact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+.contact-item { display: flex; align-items: flex-start; gap: 16px; }
+.contact-icon { display: grid; place-items: center; flex: 0 0 38px; width: 38px; height: 38px; border: 1px solid rgb(255 131 202 / 25%); border-radius: 11px; background: rgb(255 131 202 / 7%); color: var(--pink); }
+.contact-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.contact-item .micro { display: block; color: #8f7c8b; margin-bottom: 4px; }
+.contact-item a, .contact-item p { font-size: 15px; transition: color .2s; }
+.contact-item a:hover { color: var(--pink); }
+.contact-item .contact-note { margin-top: 4px; }
+.contact-form { padding: 32px; }
+.contact-form h2 { font-size: 28px; line-height: 1.15; letter-spacing: -.04em; margin-bottom: 8px; }
+.contact-form .contact-sub { font-size: 12px; color: #9c929d; margin-bottom: 24px; }
+.contact-form form { display: flex; flex-direction: column; gap: 16px; }
+.field label { display: block; margin-bottom: 8px; font: 9px/1.4 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: #8f7c8b; }
+.field input, .field select, .field textarea { width: 100%; min-height: 44px; padding: 12px; border: 1px solid #50384a; border-radius: 7px; background: #251924; color: #dfc6d9; font-size: 13px; transition: border-color .2s, background .2s; }
+.field textarea { min-height: 96px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: #8a7585; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #6a4a60; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--pink-light); background: #2b1c29; box-shadow: 0 0 0 3px rgb(255 131 202 / 14%); }
+.field [aria-invalid="true"] { border-color: #ff7b7b; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-error { padding: 12px 14px; border: 1px solid rgb(255 123 123 / 30%); border-radius: 8px; background: rgb(255 123 123 / 8%); color: #ffc4c4; font-size: 12px; line-height: 1.6; }
+.form-error a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.form-note { text-align: center; font-size: 9px; }
+.contact-form .button { width: 100%; min-height: 46px; font-size: 12px; }
+.contact-success { padding: 56px 0; text-align: center; }
+.contact-success .success-mark { display: grid; place-items: center; width: 62px; height: 62px; margin: 0 auto 24px; border: 1px solid rgb(255 131 202 / 30%); border-radius: 50%; background: rgb(255 131 202 / 8%); color: var(--pink); font-size: 24px; }
+.contact-success p { max-width: 340px; margin: 12px auto 0; font-size: 13px; line-height: 1.7; color: #a39aa3; }
+.contact-success a { color: var(--pink); }
+
+/* ---------- tablet and below ---------- */
+@media (max-width: 1100px) {
+  .window-title .micro { display: none; }
+  .workflow-node strong { font-size: 10px; }
+  .workflow-node .micro { font-size: 7.5px; }
+  .node-brand { display: none; }
+  .hero-copy > p { max-width: 100%; }
+  .hero-actions .button { font-size: 11px; padding-inline: 16px; }
+  .section-heading > p { width: 280px; font-size: 12px; }
+  .capability-grid, .steps-grid, .quotes-grid { gap: 12px; }
+  .addon-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-block .feature-copy { max-width: 360px; }
+}
+@media (max-width: 1000px) {
+  .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding-top: 60px; padding-bottom: 70px; }
+  .hero-copy { margin-top: 0; }
+  .hero-copy > p { max-width: 520px; font-size: 14px; }
+  .hero-actions .button { font-size: 12px; padding-inline: 20px; }
+  .hero-visual { width: min(100%, 780px); margin: 64px auto 0; }
+  .window-title .micro { display: inline; }
+  .workflow-node strong { font-size: 11px; }
+  .workflow-node .micro { font-size: 8px; }
+  .node-brand { display: grid; }
+  h1 { font-size: clamp(44px, 8vw, 66px); }
+  .integration-strip { flex-wrap: wrap; justify-content: flex-start; gap: 22px 36px; margin-top: 88px; }
+  .hero-bottom { position: static; margin-top: 38px; }
+  .dashboard-grid { grid-template-columns: 1fr 1fr; }
+  .heatmap-card { grid-column: 1 / -1; }
+  .quotes-grid { grid-template-columns: 1fr; }
+  .quote-card { gap: 26px; }
+  .results-grid { grid-template-columns: 1fr; gap: 34px; }
+  .results-grid article { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+  .results-grid article > .micro:first-child, .results-grid article > strong, .results-grid article > .micro:nth-child(3) { grid-column: 1; }
+  .results-grid article > svg, .time-bars, .result-progress { grid-column: 2; grid-row: 1 / 4; align-self: center; margin-top: 0; }
+  .results-grid article > p { grid-column: 1 / -1; }
+  .feature-row, .feature-row--reverse { grid-template-columns: 1fr; gap: 30px; padding: 40px 0; }
+  .feature-row--reverse .feature-copy { order: -1; }
+  .feature-copy, .feature-block .feature-copy { max-width: 520px; }
+  .reliability-grid { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; gap: 48px; padding-top: 52px; }
+  .values-grid, .faq-grid { grid-template-columns: 1fr; }
+  .closing-section { grid-template-columns: 1fr; gap: 14px; }
+  .closing-brand { min-height: 230px; }
+}
+@media (max-width: 900px) {
+  .system-status { display: none; }
+  .primary-nav { gap: 22px; margin-left: 4%; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 760px) {
+  .pricing-grid, .capability-grid, .steps-grid { grid-template-columns: 1fr; }
+  .cta-full { display: none; }
+  .cta-short { display: inline; }
+  .primary-nav a { font-size: 15px; padding-block: 4px; }
+  .hero { padding-top: 48px; padding-bottom: 54px; }
+  h1, .page-hero h1, .contact-copy h1 { font-size: clamp(40px, 11vw, 60px); line-height: 1.04; }
+  .hero-copy .eyebrow { font-size: 9px; margin-bottom: 26px; padding: 6px 9px; }
+  .hero-copy > p { font-size: 14px; line-height: 1.75; margin: 22px 0 26px; max-width: none; }
+  .hero-copy > p br { display: none; }
+  .hero-actions .button { min-height: 44px; font-size: 12px; padding-inline: 20px; }
+  .hero-note { font-size: 9px; }
+  .hero-visual { width: auto; margin: 52px 0 0; }
+  .window-topbar { min-height: 46px; padding-inline: 14px; }
+  .window-title { font-size: 12px; }
+  .window-title .micro { display: none; }
+  .run-status { font-size: 9px; }
+  .workflow-window { transform: perspective(1000px) rotateX(2.5deg) rotateY(-2deg) rotateZ(.4deg); }
+  .workflow-graph { height: 240px; }
+  .graph-tools { left: 10px; top: 8px; }
+  .graph-tools button { width: 22px; height: 22px; font-size: 13px; }
+  .graph-scale { display: none; }
+  .workflow-node { width: 27%; min-height: 56px; padding: 7px 7px; }
+  .workflow-node--trigger { left: 1%; }
+  .workflow-node--condition, .workflow-node--database { left: 36.5%; }
+  .workflow-node--approval { right: 1%; }
+  .node-brand { display: none; }
+  .workflow-node strong { font-size: 10px; line-height: 1.25; white-space: normal; }
+  .workflow-node .micro { display: none; }
+  .branch-label { font-size: 8px; left: 29%; }
+  .graph-caption { font-size: 8px; left: 12px; }
+  .run-console { margin: 8px 14px 0; padding-top: 10px; }
+  .console-heading { font-size: 8px; }
+  .console-row { grid-template-columns: 72px 1fr auto; font-size: 9px; }
+  .window-bottom { margin-inline: 14px; font-size: 8px; }
+  .run-toast { left: auto; right: 3%; bottom: -50px; padding: 10px 12px; }
+  .run-toast strong { font-size: 10px; }
+  .run-toast .micro { font-size: 8px; }
+  .integration-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px 10px; margin-top: 104px; }
+  .integration-label { grid-column: 1 / -1; font-size: 9px; }
+  .integration { flex-direction: column; align-items: flex-start; gap: 7px; font-size: 10px; }
+  .integration-tail { display: block; grid-column: 1 / -1; font-size: 9px; }
+  .hero-bottom { margin-top: 30px; font-size: 9px; }
+  .section-heading > p { width: auto; max-width: 380px; font-size: 13px; }
+  .section-heading .eyebrow { font-size: 9px; }
+  .step-number { font-size: 9px; }
+  .feature-copy p { font-size: 13px; }
+  .feature-copy h3 { font-size: 25px; }
+  .text-button, .feature-copy .text-button { font-size: 13px; }
+  .trace-row { grid-template-columns: 9px 112px 1fr 38px; font-size: 10px; gap: 6px; }
+  .trace-row .micro { font-size: 9px; }
+  .trace-axis { font-size: 8px; margin-left: 133px; margin-right: 44px; }
+  .panel-heading, .panel-heading .micro, .trace-panel .panel-heading, .volume-panel .panel-heading { font-size: 9px; }
+  .panel-footnote, .trace-panel .panel-footnote { font-size: 9px; }
+  .approval-message p { font-size: 12px; }
+  .approval-actions button { min-height: 36px; font-size: 11px; }
+  .columns-3d { height: 205px; }
+  .column-item > span { font-size: 8px; }
+  .fold-stage { height: 330px; }
+  .fold-card > .micro { font-size: 8px; max-width: 86%; white-space: normal; text-align: center; }
+  .fold-card h2 { font-size: 36px; }
+  .reliability-grid p { font-size: 13px; max-width: none; }
+  .connection-app .micro { font-size: 8px; }
+  .region-choice strong { font-size: 9px; }
+  .region-choice small, .region-choice > .micro { font-size: 8px; }
+  .workspace-toolbar .micro { font-size: 8px; }
+  .workspace-toolbar .text-button { font-size: 10px; }
+  .dashboard-grid { gap: 11px; }
+  .donut-card > .micro, .donut-card p, .people-card > .micro, .recovery-card > .micro { font-size: 9px; }
+  .recovery-legend { font-size: 8px; }
+  .live-log-card .panel-heading { font-size: 8px; }
+  .log-entry { font-size: 9px; grid-template-columns: 5px 1fr auto; }
+  .log-entry > span:last-child { display: inline; }
+  .live-log-card .text-button { font-size: 10px; }
+  .results-grid article > .micro:first-child, .results-grid article > .micro:nth-child(3) { font-size: 9px; }
+  .results-grid article > strong { font-size: 44px; }
+  .results-grid article > p { font-size: 12px; }
+  .estimator-control > label, .range-labels { font-size: 8px; }
+  .estimate-question h3 { font-size: 15px; max-width: 220px; line-height: 1.4; }
+  .estimate-question output { font-size: 12px; }
+  .estimate-plan > .micro { font-size: 8px; }
+  .estimate-plan .button { font-size: 11px; min-height: 40px; }
+  .price-card > .micro { font-size: 9px; }
+  .price-card p, .price-card li { font-size: 13px; }
+  .price-card > .button { min-height: 44px; font-size: 12px; }
+  .plan-badge, .price-card .plan-badge { font-size: 8px !important; }
+  .pricing-disclaimer { font-size: 9px; padding-inline: 6px; line-height: 1.7; }
+  .quote-card blockquote em { font-size: 20px; }
+  .closing-brand > .micro, .closing-cta > .micro, .closing-cta > .micro:last-child { font-size: 9px; }
+  .closing-cta .button { min-height: 44px; font-size: 12px; }
+  .closing-copy { font-size: 13px; }
+  .footer-top > .micro { font-size: 9px; }
+  .footer-top a, .footer-top button { font-size: 12px; }
+  .footer-bottom { font-size: 9px; }
+  .footer-bottom span { max-width: none; }
+  .motion-control { font-size: 8px; }
+  .demo-dialog label, .dialog-footnote { font-size: 9px; }
+  .demo-dialog > p { font-size: 13px; }
+  .demo-dialog select { font-size: 13px; }
+  .addon-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .contact-form { padding: 24px 20px; }
+  .field-row { grid-template-columns: 1fr; gap: 16px; }
+  .feature-nav { top: 64px; }
+  .page-hero { padding-top: 48px; }
+  .timeline-panel { padding: 22px 20px 24px; }
+}
+@media (max-width: 480px) {
+  .addon-grid { grid-template-columns: 1fr; }
+  .integration-strip { grid-template-columns: repeat(3, 1fr); }
+  .hero-actions .button { flex: 1 1 100%; }
+  .workflow-node strong { font-size: 9.5px; }
+  .trace-row { grid-template-columns: 9px 100px 1fr 36px; }
+  .trace-axis { margin-left: 121px; margin-right: 42px; }
+}
